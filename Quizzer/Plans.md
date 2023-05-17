@@ -21,9 +21,9 @@
 
 5)  Files
     - [x] QuizList.txt (Quiz Name / Author / Q's count / QuizName file name)
-    - [] <QuizName>.txt (Q and A's / Correct Answer)
+    - [x] <QuizName>.txt (Q and A's / Correct Answer)
             
 6)  Objects
     ...per file
     - [x] Quiz (Quiz Name / Author / Q's count / QuizName file name)
-    - [] Question (Prompt / Answers[] / Correct Answer
+    - [x] Question (Prompt / Answers[] / Correct Answer)

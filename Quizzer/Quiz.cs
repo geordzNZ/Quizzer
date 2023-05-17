@@ -26,7 +26,7 @@ namespace Quizzer
 
         public override string ToString()
         {
-            return $"ID: {QuizID} - {QuizName} \n {QuestionsCount} q's \n {QuizFileName}";
+            return $"ID: {QuizID} - {QuizName} - {QuestionsCount} q's \n {QuizFileName}";
         }
     }
 }

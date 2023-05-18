@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizzer
+namespace Quizzer.Objects
 {
     internal class Question
     {
@@ -16,6 +16,8 @@ namespace Quizzer
         public override string ToString()
         {
             return $"ID: {QuestionID} / {QuestionPrompt} / {Answers.Length + 1} a's";
-        }
-    }
-}
+        }  //  End of public override string ToString
+
+
+    }  //  End of internal class Question
+}  //  End of namespace Quizzer.Objects

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizzer
+namespace Quizzer.Objects
 {
     public class Quiz
     {
@@ -22,11 +22,12 @@ namespace Quizzer
                 tempFileName += char.IsLetterOrDigit(c) ? c : '_';
             }
             return tempFileName + ".txt";
-        }
+        }  //  End of public string MakeFileName
 
         public override string ToString()
         {
             return $"ID: {QuizID} - {QuizName} - {QuestionsCount} q's \n {QuizFileName}";
-        }
-    }
-}
+        }  //  End of public override string ToString
+
+    }  //  End of internal class Quiz
+}  //  End of namespace Quizzer.Objects

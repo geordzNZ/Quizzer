@@ -1,27 +1,29 @@
 ﻿using System.Transactions;
 using System.Xml.Serialization;
+using Quizzer.UI;
 
 namespace Quizzer
 {
     internal class Program
     {
+        public const int POPUP_TIME = 750;
         static void Main(string[] args)
         {
             char gameMode = ' ';
 
             while (gameMode != 'X')
             {
-                UIMethods.DisplayHeader();
-                UIMethods.DisplayGameModeInstructions();
-                gameMode = UIMethods.GetCharUserInput("Choose a game mode","EQX");
+                UI.GameUI.DisplayGameHeader();
+                UI.GameUI.DisplayGameModeInstructions();
+                gameMode = Logic.UtilitiesLogic.GetCharUserInput("Choose a game mode","EQX");
 
                 switch (gameMode)
                 {
                     case 'E':
-                        EditorGameMode();
+                        Logic.EditorLogic.EditorGameMode();
                         break;
                     case 'Q':
-                        QuizzerGameMode();
+                        Logic.QuizzerLogic.QuizzerGameMode();
                         break;
                 }
 
@@ -77,20 +79,6 @@ namespace Quizzer
             //}
         
        } // end of static void Main
-
-        static void EditorGameMode()
-        {
-            UIMethods.DisplayEditorInstructions();
-            char editorAction = UIMethods.GetCharUserInput("Choose an Editor action", "CEDR");
-            Console.WriteLine($"\tEditor Option = {editorAction}");
-        } // static void EditorGameMode
-
-        static void QuizzerGameMode()
-        {
-            UIMethods.DisplayQuizzerInstructions();
-            char quizzerAction = UIMethods.GetCharUserInput("Choose an Quizzer action", "LR");
-            Console.WriteLine($"\tEditor Option = {quizzerAction}");
-        } // static void QuizzerGameMode
 
     } // end of internal class Program
 } // end of namespace Quizzer

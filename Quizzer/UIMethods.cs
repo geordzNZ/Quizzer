@@ -9,8 +9,8 @@ namespace Quizzer
     public static class UIMethods
     {
         const string DIVIDER = "===================================================================";
-        const string BLANKER = "                                                                   ";
-        const int POPUP_TIME = 500;
+        const string BLANKER = "                                                                                ";
+        const int POPUP_TIME = 750;
         public static void DisplayDivider()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -63,32 +63,30 @@ namespace Quizzer
             Console.WriteLine("\t\t  - R = Return to game menu.");
             DisplayDivider();
         }
-        
-        // TODO: Think about how to reuse this for all menu validations.
-        public static char GetGameMode()
+
+        public static char GetCharUserInput(string userPrompt, string validOptions)
         {
             char gameModeAnswer = ' ';
+            char[] validChars = (validOptions.ToUpper()).ToCharArray();
+
             do
             {
-                // Get user input
-                //ConsoleKeyInfo playAgainInput = UI_Methods.GetYesNoAnswer("");
-                DisplayBlanker(16,9);
+                DisplayBlanker(16, 9);
 
-                Console.Write($"\t\tChoose a game mode (E/Q/X): ");
+                // Get user input
+                Console.Write($"\t\t{userPrompt} ({string.Join('/',validChars)}): ");
                 ConsoleKeyInfo gameModeInput = Console.ReadKey();
 
-                char casedGameModeInput = char.ToLower(gameModeInput.KeyChar);
+                char casedGameModeInput = char.ToUpper(gameModeInput.KeyChar);
 
-                if ((int)casedGameModeInput == 101 || // e or E
-                    (int)casedGameModeInput == 113 || // q or Q
-                    (int)casedGameModeInput == 120)   // x or X
+                if (validOptions.Contains(casedGameModeInput, StringComparison.CurrentCultureIgnoreCase))
                 {
                     gameModeAnswer = char.Parse(gameModeInput.KeyChar.ToString());
                     break;
                 }
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\t --> Please enter only E / Q / X ");
+                Console.WriteLine($"\t --> Valid options are {string.Join(" / ", validChars)} ");
                 Console.ResetColor();
                 Thread.Sleep(POPUP_TIME);
             } while (true);  // Play again loop

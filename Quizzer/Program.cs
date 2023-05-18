@@ -9,19 +9,19 @@ namespace Quizzer
         {
             char gameMode = ' ';
 
-            while (gameMode != 'q')
+            while (gameMode != 'X')
             {
                 UIMethods.DisplayHeader();
                 UIMethods.DisplayGameModeInstructions();
-                gameMode = UIMethods.GetGameMode();
-                
+                gameMode = UIMethods.GetCharUserInput("Choose a game mode","EqX");
+
                 switch (gameMode)
                 {
                     case 'e':
                         UIMethods.DisplayEditorInstructions();
 
                         break;
-                    case 'p':
+                    case 'q':
                         UIMethods.DisplayPlayerInstructions();
                         break;
                 }

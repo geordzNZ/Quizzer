@@ -13,20 +13,19 @@ namespace Quizzer
             {
                 UIMethods.DisplayHeader();
                 UIMethods.DisplayGameModeInstructions();
-                gameMode = UIMethods.GetCharUserInput("Choose a game mode","EqX");
+                gameMode = UIMethods.GetCharUserInput("Choose a game mode","EQX");
 
                 switch (gameMode)
                 {
-                    case 'e':
-                        UIMethods.DisplayEditorInstructions();
-
+                    case 'E':
+                        EditorGameMode();
                         break;
-                    case 'q':
-                        UIMethods.DisplayPlayerInstructions();
+                    case 'Q':
+                        QuizzerGameMode();
                         break;
                 }
 
-                
+
 
             }
 
@@ -76,6 +75,22 @@ namespace Quizzer
             //{
             //    Console.WriteLine(q);
             //}
-        }
-    }
-}
+        
+       } // end of static void Main
+
+        static void EditorGameMode()
+        {
+            UIMethods.DisplayEditorInstructions();
+            char editorAction = UIMethods.GetCharUserInput("Choose an Editor action", "CEDR");
+            Console.WriteLine($"\tEditor Option = {editorAction}");
+        } // static void EditorGameMode
+
+        static void QuizzerGameMode()
+        {
+            UIMethods.DisplayQuizzerInstructions();
+            char quizzerAction = UIMethods.GetCharUserInput("Choose an Quizzer action", "LR");
+            Console.WriteLine($"\tEditor Option = {quizzerAction}");
+        } // static void QuizzerGameMode
+
+    } // end of internal class Program
+} // end of namespace Quizzer

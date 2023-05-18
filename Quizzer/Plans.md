@@ -1,17 +1,17 @@
 #Details
 
-1)  [] Show welcome 
+1)  [x] Show welcome 
 
 2)  Show instructions
-    - [] Creator mode, add Q & A / min Q's = 1 / min A's = 2 / store to file
-    - [] Player mode
+    - [x] Editor mode, Create  / Edit / Delete / return
+    - [x] Quizzer mode, List Quizzes / return
 
-3)  Enter creator mode
-    - [] prompt for Quiz name / author
+3)  Enter Editor mode
+    - [] Wizard type process ... prompt for Quiz name / author / Quiz (Add info and Q & A's - min Q's = 1
     - [] propmt for Q, statement, no ?
     - [] prompt for A's, first one is correct, then at least 1 other option
     - [] store as needed
-4)  Enter player mode
+4)  Enter Quizzer mode
     - [] choose a quiz from available quizes / show number of q's / creator
     - [] program chooses random Q
     - [] displays Answers in random order

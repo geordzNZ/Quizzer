@@ -37,61 +37,64 @@ namespace Quizzer
         }
         public static void DisplayGameModeInstructions()
         {
-            Console.WriteLine("\t\tGame mode:");
-            Console.WriteLine("\t\t  - E = Editor  --> Create / Edit quizzes.");
-            Console.WriteLine("\t\t  - Q = Quizzer --> Test your skills.");
-            Console.WriteLine("\t\t  - X = Exit    --> Run away an hide.");
+            Console.WriteLine("\tGame mode:");
+            Console.WriteLine("\t  - E = Editor  --> Create / Edit quizzes.");
+            Console.WriteLine("\t  - Q = Quizzer --> Test your skills.");
+            Console.WriteLine("\t  - X = Exit    --> Run away an hide.");
             DisplayDivider();
         }
 
         public static void DisplayEditorInstructions()
         {
             DisplayHeader();
-            Console.WriteLine("\t\tEDITOR  Game Menu");
-            Console.WriteLine("\t\t  - C = Create a new quiz.");
-            Console.WriteLine("\t\t  - E = Edit a current quiz.");
-            Console.WriteLine("\t\t  - D = Delete a current quiz.");
-            Console.WriteLine("\t\t  - R = Return to game menu.");
+            Console.WriteLine("\tEDITOR Game Menu");
+            Console.WriteLine("\t  - C = Create a new quiz.");
+            Console.WriteLine("\t  - E = Edit a current quiz.");
+            Console.WriteLine("\t  - D = Delete a current quiz.");
+            Console.WriteLine("\t  - R = Return to game menu.");
             DisplayDivider();
         }
 
-        public static void DisplayPlayerInstructions()
+        public static void DisplayQuizzerInstructions()
         {
             DisplayHeader();
-            Console.WriteLine("\t\tQUIZZER  Game Menu");
-            Console.WriteLine("\t\t  - L = List Available quizes.");
-            Console.WriteLine("\t\t  - R = Return to game menu.");
+            Console.WriteLine("\tQUIZZER Game Menu");
+            Console.WriteLine("\t  - L = List Available quizes.");
+            Console.WriteLine("\t  - R = Return to game menu.");
             DisplayDivider();
         }
 
         public static char GetCharUserInput(string userPrompt, string validOptions)
         {
-            char gameModeAnswer = ' ';
+            //char gameModeAnswer = ' ';
             char[] validChars = (validOptions.ToUpper()).ToCharArray();
 
             do
             {
-                DisplayBlanker(16, 9);
+                
+                DisplayBlanker(16, Console.CursorTop + 1);
 
                 // Get user input
-                Console.Write($"\t\t{userPrompt} ({string.Join('/',validChars)}): ");
-                ConsoleKeyInfo gameModeInput = Console.ReadKey();
+                Console.Write($"\t{userPrompt} ({string.Join('/',validChars)}): ");
+                ConsoleKeyInfo userInput = Console.ReadKey();
 
-                char casedGameModeInput = char.ToUpper(gameModeInput.KeyChar);
+                char casedUserInput = char.ToUpper(userInput.KeyChar);
 
-                if (validOptions.Contains(casedGameModeInput, StringComparison.CurrentCultureIgnoreCase))
+                if (validOptions.Contains(casedUserInput, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    gameModeAnswer = char.Parse(gameModeInput.KeyChar.ToString());
-                    break;
+                    //gameModeAnswer = casedGameModeInput
+                    return casedUserInput;
+                    //break;
                 }
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\t --> Valid options are {string.Join(" / ", validChars)} ");
+                Console.Write($"\t --> Valid options are {string.Join(" / ", validChars)} ");
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 Console.ResetColor();
                 Thread.Sleep(POPUP_TIME);
             } while (true);  // Play again loop
 
-            return gameModeAnswer;
+            //return gameModeAnswer;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Quizzer
             {
                 UI.GameUI.DisplayGameHeader();
                 UI.GameUI.DisplayGameModeInstructions();
-                gameMode = Logic.UtilitiesLogic.GetCharUserInput("Choose a game mode","EQX");
+                gameMode = Logic.UtilitiesLogic.GetCharUserInput("Choose a game mode", "EQX");
 
                 switch (gameMode)
                 {
@@ -31,7 +31,7 @@ namespace Quizzer
 
             }
 
-            //Quiz QuizOne = new Quiz();
+            //Objects.Quiz QuizOne = new Objects.Quiz();
 
             //QuizOne.QuizID = 1;
             //QuizOne.QuizName = "000%%Quiz name goes here$$10";
@@ -39,7 +39,7 @@ namespace Quizzer
             //QuizOne.QuestionsCount = 15;
             //QuizOne.QuizFileName = QuizOne.MakeFileName(QuizOne.QuizName);
 
-            //Quiz QuizTwo = new Quiz();
+            //Objects.Quiz QuizTwo = new Objects.Quiz();
 
             //QuizTwo.QuizID = 2;
             //QuizTwo.QuizName = "This is the Quiz name $$10";
@@ -59,7 +59,7 @@ namespace Quizzer
             //string filePath = @"C:\Users\Geordie\Documents\Dev\C-Sharp\RaketeMentoring\Projects\Module06\Data\QuizList.txt";
 
             //// Save file with QuizList1
-            //XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Quiz>));
+            //XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
 
             //using (FileStream outputFile = File.Create(filePath))
             //{
@@ -69,7 +69,7 @@ namespace Quizzer
             //// Open file and write to QuizList2
             //using (FileStream inputFile = File.OpenRead(filePath))
             //{
-            //    QuizList2 = xmlWriter.Deserialize(inputFile) as List<Quiz>;
+            //    QuizList2 = xmlWriter.Deserialize(inputFile) as List<Objects.Quiz>;
             //}
 
             //Console.WriteLine(" -- QuizList2 -- ");
@@ -77,8 +77,8 @@ namespace Quizzer
             //{
             //    Console.WriteLine(q);
             //}
-        
-       } // end of static void Main
+
+        } // end of static void Main
 
     } // end of internal class Program
 } // end of namespace Quizzer

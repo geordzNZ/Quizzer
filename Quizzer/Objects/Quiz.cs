@@ -26,7 +26,7 @@ namespace Quizzer.Objects
 
         public override string ToString()
         {
-            return $"ID: {QuizID} - {QuizName} - {QuestionsCount} q's \n {QuizFileName}";
+            return $"\tID: {QuizID} -- {QuizName} -- {Author} -- {QuestionsCount} q's -- {QuizFileName}";
         }  //  End of public override string ToString
 
     }  //  End of internal class Quiz

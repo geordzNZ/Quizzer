@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace Quizzer.Objects
 {
-    internal class Question
+    public class Question
     {
         public int QuestionID;
         public string QuestionPrompt;
         public string CorrectAnswer;
         public string WrongAnswers;
-        //public string[] WrongAnswers = new string[0];
 
         public override string ToString()
         {
-            return $"ID: {QuestionID} / {QuestionPrompt} / {WrongAnswers.Length + 1} a's";
+            return $"\t\tID: {QuestionID} -- {QuestionPrompt} -- {CorrectAnswer} / {WrongAnswers}";
         }  //  End of public override string ToString
 
 
-    }  //  End of internal class Question
+    }  //  End of public class Question
 }  //  End of namespace Quizzer.Objects

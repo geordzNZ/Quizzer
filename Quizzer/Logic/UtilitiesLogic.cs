@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizzer.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,5 +98,6 @@ namespace Quizzer.Logic
 
             return currentQuizList.Count;
         }  //  End of public static int GetQuizCount
+
     }  //  End of internal class UtilitiesLogic
 }  //  Quizzer.Logic

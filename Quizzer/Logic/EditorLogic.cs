@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+
 
 namespace Quizzer.Logic
 {
@@ -25,6 +28,10 @@ namespace Quizzer.Logic
 
                     // Set up for new Quiz
                     List<Quiz> QuizList = new List<Quiz>();
+                    List<Quiz> testQuizList = new List<Quiz>();
+                    List<Quiz> testQuizList2 = new List<Quiz>();
+
+
                     Objects.Quiz quiz = new Objects.Quiz();
 
                     // Store Quiz object values
@@ -34,7 +41,7 @@ namespace Quizzer.Logic
                     quiz.QuizFileName = quiz.MakeFileName(quiz.QuizName);
                     Console.CursorTop = Console.CursorTop + 1;
                     
-                    QuizList.Add(quiz);
+                    testQuizList.Add(quiz);
 
                     // Set up for new Question
                     List<Question> QuestionList = new List<Question>();
@@ -56,13 +63,61 @@ namespace Quizzer.Logic
                         endOfQuestions = Logic.UtilitiesLogic.GetUserInputChar("Add another Question", "YN");
                     }
 
+                    Console.WriteLine($"\n\nWriting quiz and questions as entered");
+
                     quiz.QuestionsCount = QuestionList.Count;
                     Console.WriteLine(quiz);
                     foreach (Question q in QuestionList)
                     {
                         Console.WriteLine(q);
                     }
+
+
+                    XmlSerializer xmlQuizWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
+                    XmlSerializer xmlQuestionWriter = new XmlSerializer(typeof(List<Objects.Question>));
+
+
+                    // Open file and write to QuizList2
+                    Console.WriteLine($"\nWriting QuizList - file state on open");
+                        using (FileStream inputFile = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+                        {
+                            QuizList = xmlQuizWriter.Deserialize(inputFile) as List<Objects.Quiz>;
+                        }
+                        foreach (Quiz q in QuizList)
+                        {
+                            Console.WriteLine(q);
+                        }
                     
+                    Console.WriteLine($"\nWriting QuizList - list state after adding new Quiz");
+                        QuizList.Add(quiz);
+                        foreach (Quiz q in QuizList)
+                        {
+                            Console.WriteLine(q);
+                        }
+
+                    Console.WriteLine($"\nWriting QuizList - file state after adding new Quiz and saving/retrieving");
+                        using (FileStream outputFile = File.Create(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+                        {
+                            xmlQuizWriter.Serialize(outputFile, QuizList);
+                        }
+
+                        using (FileStream inputFile = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+                        {
+                        testQuizList2 = xmlQuizWriter.Deserialize(inputFile) as List<Objects.Quiz>;
+                        }
+                        foreach (Quiz q in testQuizList2)
+                        {
+                            Console.WriteLine(q);
+                        }
+
+                    using (FileStream outputFile = File.Create(Program.DATASTORE_PATH + quiz.QuizFileName))
+                    {
+                        xmlQuestionWriter.Serialize(outputFile, QuestionList);
+                    }
+
+                    endOfQuestions = Logic.UtilitiesLogic.GetUserInputChar("... pauser ... ", "YN");
+
+
                     // TODO: Prompt to check data and loop if incorrect ... or maybe just do the 'wrong bit'??
 
 

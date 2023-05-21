@@ -10,6 +10,9 @@ namespace Quizzer.UI
     {
         const string DIVIDER = "===================================================================";
         const string BLANKER = "                                                                                ";
+        /// <summary>
+        /// Displays defualt divider line with formatting
+        /// </summary>
         public static void DisplayDivider()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -17,6 +20,11 @@ namespace Quizzer.UI
             Console.ResetColor();
         }  //  End of public static void DisplayDivider
 
+        /// <summary>
+        /// Blanks out certain parts of the sreen, based on params and repositions cursor for next input
+        /// </summary>
+        /// <param name="left">number(int) indicating position from the left of the console</param>
+        /// <param name="top">number(int) indicating position from the top of the console</param>
         public static void DisplayBlanker(int left, int top)
         {
             Console.SetCursorPosition(left, top);

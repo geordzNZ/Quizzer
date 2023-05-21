@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizzer.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,27 +12,66 @@ namespace Quizzer.Logic
         public static void EditorGameMode()
         {
             UI.EditorUI.DisplayEditorInstructions();
-            char editorAction = Logic.UtilitiesLogic.GetCharUserInput("Choose an Editor action", "CEDR");
-            Console.WriteLine($"\tEditor Option = {editorAction}");
-            Thread.Sleep(Program.POPUP_TIME);
+
+            char editorAction = Logic.UtilitiesLogic.GetUserInputChar("Choose an Editor action", "CEDR");
+            //Console.WriteLine($"\tEditor Option = {editorAction}");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
 
             switch (editorAction)
             {
                 case 'C':
-                    // Instantiate Quiz obj and populate
-                    //   - Set QuizID - Count of quizes + 1
-                    //   - Prompt for QuizName and store
-                    //   - Prompt for Author and store
-                    //   - Prompt for QuizFileName and store
+                    
+                    UI.EditorUI.DisplayEditorActionsHeader("Create", "Follow the prompts to create your new quiz");
+
+                    // Set up for new Quiz
+                    List<Quiz> QuizList = new List<Quiz>();
+                    Objects.Quiz quiz = new Objects.Quiz();
+
+                    // Store Quiz object values
+                    quiz.QuizID = Program.CURRENT_QUIZ_COUNT + 1;
+                    quiz.QuizName = Logic.UtilitiesLogic.GetUserInputString("Quiz Name");
+                    quiz.Author = Logic.UtilitiesLogic.GetUserInputString("Author Name");
+                    quiz.QuizFileName = quiz.MakeFileName(quiz.QuizName);
+                    Console.CursorTop = Console.CursorTop + 1;
+                    
+                    QuizList.Add(quiz);
+
+                    // Set up for new Question
+                    List<Question> QuestionList = new List<Question>();
+                    char endOfQuestions = 'Y';
+                    int questionCounter = 0;
+
+                    while (endOfQuestions == 'Y')
+                    {
+                        Objects.Question question = new Objects.Question();
+                        questionCounter++;
+
+                        // Store Question object values
+                        question.QuestionID = questionCounter;
+                        question.QuestionPrompt = Logic.UtilitiesLogic.GetUserInputString($"Question {questionCounter} - prompt");
+                        question.CorrectAnswer = Logic.UtilitiesLogic.GetUserInputString($"Question {questionCounter} - correct answer");
+                        question.WrongAnswers = Logic.UtilitiesLogic.GetUserInputString($"Question {questionCounter} - wrong answers separated by /");
+                        QuestionList.Add(question);
+
+                        endOfQuestions = Logic.UtilitiesLogic.GetUserInputChar("Add another Question", "YN");
+                    }
+
+                    quiz.QuestionsCount = QuestionList.Count;
+                    Console.WriteLine(quiz);
+                    foreach (Question q in QuestionList)
+                    {
+                        Console.WriteLine(q);
+                    }
+                    
+                    // TODO: Prompt to check data and loop if incorrect ... or maybe just do the 'wrong bit'??
+
+
+
                     //   - Prompt to
                     //     - Edit Entries --> redo loop to here
                     //     - Save to File --> Save
                     //   - Move to Add Questions
                     // Instantiate Question obj and populate
-                    //   - Set QuestionID - start at 0, increment
-                    //   - Prompt for QuestionPrompt and store
-                    //   - Prompt for CorrectAnswer and save
-                    //   - Prompt for IncorrectAnswers and save (delimiter??)
                     //   - Prompt to
                     //     - Edit Entries --> redo loop to here
                     //     - Save to File --> Save

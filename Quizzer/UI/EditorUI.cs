@@ -20,6 +20,14 @@ namespace Quizzer.UI
             UI.UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayEditorInstructions
 
+        public static void DisplayEditorActionsHeader(string action, string prompt)
+        {
+            UI.GameUI.DisplayGameHeader();
+            Console.WriteLine($"\tEDITOR Game Mode - {action} a quiz");
+            Console.WriteLine($"\t  {prompt}");
+            UI.UtilitiesUI.DisplayDivider();
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+        }  //  End of public static void DisplayEditorActionsHeader
 
     }  //  End of internal calss EditorUI
 }  //  namespace Quizzer.UI

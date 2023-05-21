@@ -11,11 +11,12 @@ namespace Quizzer.Objects
         public int QuestionID;
         public string QuestionPrompt;
         public string CorrectAnswer;
-        public string[] Answers = new string[0];
+        public string WrongAnswers;
+        //public string[] WrongAnswers = new string[0];
 
         public override string ToString()
         {
-            return $"ID: {QuestionID} / {QuestionPrompt} / {Answers.Length + 1} a's";
+            return $"ID: {QuestionID} / {QuestionPrompt} / {WrongAnswers.Length + 1} a's";
         }  //  End of public override string ToString
 
 

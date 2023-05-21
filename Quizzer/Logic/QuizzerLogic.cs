@@ -13,7 +13,7 @@ namespace Quizzer.Logic
         public static void QuizzerGameMode()
         {
             UI.QuizzerUI.DisplayQuizzerInstructions();
-            char quizzerAction = Logic.UtilitiesLogic.GetCharUserInput("Choose an Quizzer action", "LR");
+            char quizzerAction = Logic.UtilitiesLogic.GetUserInputChar("Choose an Quizzer action", "LR");
             Console.WriteLine($"\tQuizzer Option = {quizzerAction}");
             Thread.Sleep(Program.POPUP_TIME);
 

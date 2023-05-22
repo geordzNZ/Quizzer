@@ -10,12 +10,14 @@ namespace Quizzer
         public const int POPUP_TIME = 750;
         public const string DATASTORE_PATH = @"C:\Users\Geordie\Documents\Dev\C-Sharp\RaketeMentoring\Projects\Module06\Data\";
         public const string QUIZ_LIST_FILENAME = "QuizList.txt";
-        public static int CURRENT_QUIZ_COUNT = 0;
+        //public static int CURRENT_QUIZ_COUNT = 0;
+        public static List<Quiz> QUIZ_LIST = new List<Quiz>();
+        
 
         static void Main(string[] args)
         {
             char gameMode = ' ';
-            Program.CURRENT_QUIZ_COUNT = Logic.UtilitiesLogic.GetQuizCount();
+            Program.QUIZ_LIST = Logic.UtilitiesLogic.ReadFromQuizFile();
 
             while (gameMode != 'X')
             {

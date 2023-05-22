@@ -32,5 +32,12 @@ namespace Quizzer.UI
             Console.SetCursorPosition(0, top);
         }  //  End of public static void DisplayBlanker
 
+
+        public static void DisplayMessage(string message)
+        {
+            Console.WriteLine($"\n\t{message}");
+            DisplayDivider();
+            Thread.Sleep(Program.POPUP_TIME);
+        }
     }  //  End of internal class UtilitiesUI
 }  //  End of namespace Quizzer.UI 

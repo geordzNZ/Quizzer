@@ -79,25 +79,42 @@ namespace Quizzer.Logic
                 return "xxx";
         }
 
-        public static int GetQuizCount()
+        public static List<Quiz> ReadFromQuizFile()
         {
-            if (!File.Exists(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+            XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Objects.Quiz>));
+            using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
             {
-                return 0;
+                return xmlQuizReader.Deserialize(file) as List<Objects.Quiz>;
             }
+        }  //  End of public static List<Quiz> GetCurrentQuizzes
 
-            // Open file to check current list count
-            XmlSerializer xmlWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
-
-            List<Objects.Quiz> currentQuizList = new List<Objects.Quiz>();
-
-            using (FileStream inputFile = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+        public static void WriteToQuizFile(List<Quiz> quiz)
+        {
+            XmlSerializer xmlQuizWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
+            using (FileStream file = File.Create(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
             {
-                currentQuizList = xmlWriter.Deserialize(inputFile) as List<Objects.Quiz>;
+                xmlQuizWriter.Serialize(file, quiz);
             }
+        }  //  End of public static void WriteToQuizFile
 
-            return currentQuizList.Count;
-        }  //  End of public static int GetQuizCount
+        public static List<Question> ReadFromQuestionFile(string filename)
+        {
+            XmlSerializer xmlQuestionReader = new XmlSerializer(typeof(List<Objects.Question>));
+
+            using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + filename))
+            {
+                return xmlQuestionReader.Deserialize(file) as List<Objects.Question>;
+            }
+        }  //  End of public static List<Question> ReadFromQuestionFile
+
+        public static void WriteToQuestionFile(List<Question> questions, string filename)
+        {
+            XmlSerializer xmlQuestionWriter = new XmlSerializer(typeof(List<Objects.Question>));
+            using (FileStream file = File.Create(Program.DATASTORE_PATH + filename))
+            {
+                xmlQuestionWriter.Serialize(file, questions);
+            }
+        }  //  End of public static void WriteToQuestionFile
 
     }  //  End of internal class UtilitiesLogic
 }  //  Quizzer.Logic

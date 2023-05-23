@@ -11,7 +11,7 @@ namespace Quizzer.UI
         public static void DisplayGameHeader()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\t\tWELCOME TO QUIZZING QUIZZER");
             Console.WriteLine("\t\tCome and test your knowledge");
             Console.ResetColor();

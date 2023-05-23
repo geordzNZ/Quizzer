@@ -21,9 +21,8 @@ namespace Quizzer.Logic
         {
             char[] validChars = validOptions.ToUpper().ToCharArray();
 
-            do
+            while (true)
             {
-
                 UI.UtilitiesUI.DisplayBlanker(16, Console.CursorTop + 1);
 
                 // Get user input
@@ -42,22 +41,22 @@ namespace Quizzer.Logic
                 Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 Console.ResetColor();
                 Thread.Sleep(Program.POPUP_TIME);
-            } while (true);
+            } 
         }  //  End of public static char GetCharUserInput
 
-                /// <summary>
-        /// Takes a prompt and gets an input from the user
+        /// <summary>
+        /// Takes a prompt and gets a string input from the user
         /// </summary>
         /// <param name="userPrompt">Question to be posed to the user</param>
         /// <returns>a non zero length string</returns>
         public static string GetUserInputString(string userPrompt)
         {
-
-
             // Get user input
             string userInput = "";
             
-            while (userInput.Length == 0){
+            //while (userInput.Length == 0)
+            while (true)
+            {
                 UI.UtilitiesUI.DisplayBlanker(8, Console.CursorTop);
                 
                 Console.Write($"\t{userPrompt}: ");
@@ -76,10 +75,50 @@ namespace Quizzer.Logic
                 Console.ResetColor();
                 Thread.Sleep(Program.POPUP_TIME);
             }
-                return "xxx";
+               // return "xxx";
         }
 
-        public static List<Quiz> ReadFromQuizFile()
+        /// <summary>
+        /// Takes a prompt and gets an int input from the user
+        /// </summary>
+        /// <param name="userPrompt">the question to prompt the user</param>
+        /// <param name="lowerValue">minimum number</param>
+        /// <param name="upperValue">maximum number</param>
+        /// <returns></returns>
+        public static int GetUserInputNumber(string userPrompt, int lowerValue, int upperValue)
+        {
+            // Get user input
+            string userInput = "";
+
+            while (true)
+            {
+                UI.UtilitiesUI.DisplayBlanker(8, Console.CursorTop + 1);
+
+                // Get user input
+                Console.Write($"\t{userPrompt} - ({lowerValue}-{upperValue}): ");
+                int forErrorCursorLeft = Console.CursorLeft;
+                int forErrorCursorTop = Console.CursorTop;
+                userInput = Console.ReadLine();
+
+                // Validate user input
+                int validatedNumber;
+                bool numberValidation = int.TryParse(userInput, out validatedNumber);
+                if (numberValidation && validatedNumber >= 1 && validatedNumber <= Program.QUIZ_LIST.Count)
+                {
+                    return validatedNumber;
+                }
+                Console.SetCursorPosition(forErrorCursorLeft, forErrorCursorTop);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.Write($"\t --> Valid options are between {lowerValue}-{upperValue} ...");
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                Console.ResetColor();
+                Thread.Sleep(Program.POPUP_TIME);
+            }
+
+        }
+
+            public static List<Quiz> ReadFromQuizFile()
         {
             XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Objects.Quiz>));
             using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))

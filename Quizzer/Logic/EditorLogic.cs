@@ -35,7 +35,6 @@ namespace Quizzer.Logic
                     quiz.QuizFileName = quiz.MakeFileName(quiz.QuizName);
                     Console.CursorTop = Console.CursorTop + 1;
                     
-                    Program.QUIZ_LIST.Add(quiz);
 
                     // Set up for new Question
                     List<Question> QuestionList = new List<Question>();
@@ -57,6 +56,9 @@ namespace Quizzer.Logic
 
                         addAnotherQuestion = Logic.UtilitiesLogic.GetUserInputChar("Add another Question", "YN");
                     }
+
+                    quiz.QuestionsCount = QuestionList.Count;
+                    Program.QUIZ_LIST.Add(quiz);
 
                     // Open file and write it to disk.
                     Logic.UtilitiesLogic.WriteToQuizFile(Program.QUIZ_LIST);

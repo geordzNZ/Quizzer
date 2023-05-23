@@ -25,7 +25,7 @@ namespace Quizzer
                 UI.GameUI.DisplayGameModeInstructions();
                 gameMode = Logic.UtilitiesLogic.GetUserInputChar("Choose a game mode", "EQX");
 
-
+                 
                 switch (gameMode)
                 {
                     case 'E':

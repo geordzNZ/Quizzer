@@ -18,7 +18,14 @@ namespace Quizzer.UI
             UI.UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayQuizzerInstructions
 
-
+        public static void DisplayQuizzerActionsHeader(string action, string prompt)
+        {
+            UI.GameUI.DisplayGameHeader();
+            Console.WriteLine($"\tQuizzer Game Mode - {action} available quizzes");
+            Console.WriteLine($"\t  {prompt}");
+            UI.UtilitiesUI.DisplayDivider();
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+        }  //  End of public static void DisplayEditorActionsHeader
 
     }  //  End of internal class Quizzer
 }  //  End of namespace Quizzer.UI

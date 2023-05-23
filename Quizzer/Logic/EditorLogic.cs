@@ -69,6 +69,11 @@ namespace Quizzer.Logic
                 case 'E':
                     // List Quizes
                     UI.EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
+                    if (Program.QuizList.Count == 0)
+                    {
+                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                        break;
+                    }
                     foreach (Quiz q in Program.QuizList)
                     {
                         Console.WriteLine(q);
@@ -91,6 +96,12 @@ namespace Quizzer.Logic
                 case 'D':
                     // List Quizes
                     UI.EditorUI.DisplayEditorActionsHeader("Delete", "Choose a list to delete");
+                    if (Program.QuizList.Count == 0)
+                    {
+                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                        break;
+                    }
+
                     foreach (Quiz q in Program.QuizList)
                     {
                         Console.WriteLine(q);

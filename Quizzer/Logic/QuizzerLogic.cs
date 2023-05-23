@@ -15,7 +15,6 @@ namespace Quizzer.Logic
         {
             UI.QuizzerUI.DisplayQuizzerInstructions();
             char quizzerAction = Logic.UtilitiesLogic.GetUserInputChar("Choose an Quizzer action", "LR");
-            Console.WriteLine($"\tQuizzer Option = {quizzerAction}");
             Thread.Sleep(Program.POPUP_TIME);
 
             switch (quizzerAction)
@@ -23,6 +22,12 @@ namespace Quizzer.Logic
                 case 'L':
                     // List Quizes
                     UI.QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
+                    if (Program.QuizList.Count == 0)
+                    {
+                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the previous menu...");
+                        break;
+                    }
+
                     int quizCounter = 1;
                     foreach (Quiz q in Program.QuizList)
                     {
@@ -42,21 +47,9 @@ namespace Quizzer.Logic
                     int selectedQuizNumber = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID", 1, Program.QuizList.Count);
                     TakeQuiz(Program.QuizList[selectedQuizNumber-1]);
 
+                    char tempPauser = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
 
 
-                    char tempPauser1 = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
-                    UI.UtilitiesUI.DisplayMessage("WIP - Coming soon!!!");
-
-
-                    // Load Question info from file
-                    // Ask Question
-                    //   - Choose random Question, add info to temp obj, 
-                    //   - Show Question Prompt
-                    //   - Build possible answers (correct and incorrect)
-                    //   - Choose random Answer and display / repeat for all answers
-                    // Prompt for user's Answer
-                    // Compare to Answer and output result / update stats
-                    // Repeat for all questions
                     // Output final Quiz results
                     // Show Quizzer menu again
                     break;
@@ -92,7 +85,7 @@ namespace Quizzer.Logic
 
             int correctAnswers = 0;
 
-            for (int i=0; i<quiz.QuestionsCount; i++)
+            for (int i = 0; i < quiz.QuestionsCount; i++)
             {
                 int randomQuestionID = randomQuestion.Next(allQuestionList.Count);
 
@@ -104,14 +97,14 @@ namespace Quizzer.Logic
                 int userAnswerID = 999;
 
                 Console.WriteLine($"\t\tQ:  {allQuestionList[randomQuestionID].QuestionPrompt}");
-                for (int j=0; j<totalAnswers; j++)
+                for (int j = 0; j < totalAnswers; j++)
                 {
                     int randomAnswerID = randomAnswer.Next(allAnswersList.Count);
 
-                    Console.WriteLine($"\t\t\t{j+1}:  {allAnswersList[randomAnswerID]}");
+                    Console.WriteLine($"\t\t\t{j + 1}:  {allAnswersList[randomAnswerID]}");
 
                     usedAnswersList.Add(allAnswersList[randomAnswerID]);
-                    allAnswersList.Remove (allAnswersList[randomAnswerID]);
+                    allAnswersList.Remove(allAnswersList[randomAnswerID]);
                 }
 
 
@@ -119,7 +112,7 @@ namespace Quizzer.Logic
                 allQuestionList.Remove(allQuestionList[randomQuestionID]);
 
                 userAnswerID = Logic.UtilitiesLogic.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
-                if (usedAnswersList[userAnswerID-1] == askedQuestionList[askedQuestionList.Count-1].CorrectAnswer)
+                if (usedAnswersList[userAnswerID - 1] == askedQuestionList[askedQuestionList.Count - 1].CorrectAnswer)
                 {
                     Console.WriteLine($"\t\tCORRECT!!");
                     correctAnswers++;
@@ -129,9 +122,8 @@ namespace Quizzer.Logic
                     Console.WriteLine($"\t\tWRONG!!");
 
                 }
-
-                Console.WriteLine($"You scored {correctAnswers}");
             }
+            Console.WriteLine($"You scored {correctAnswers} correct, out of {askedQuestionList.Count} -- {(correctAnswers / askedQuestionList.Count)}%");
         }
 
     }  //  End of internal class QuizzerLogic

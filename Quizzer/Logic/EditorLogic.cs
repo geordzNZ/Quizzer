@@ -29,7 +29,7 @@ namespace Quizzer.Logic
                     Objects.Quiz quiz = new Objects.Quiz();
 
                     // Store Quiz object values
-                    quiz.QuizID = Program.QUIZ_LIST.Count + 1;
+                    quiz.QuizID = Program.QuizList.Count + 1;
                     quiz.QuizName = Logic.UtilitiesLogic.GetUserInputString("Quiz Name");
                     quiz.Author = Logic.UtilitiesLogic.GetUserInputString("Author Name");
                     quiz.QuizFileName = quiz.MakeFileName(quiz.QuizName);
@@ -58,10 +58,10 @@ namespace Quizzer.Logic
                     }
 
                     quiz.QuestionsCount = QuestionList.Count;
-                    Program.QUIZ_LIST.Add(quiz);
+                    Program.QuizList.Add(quiz);
 
                     // Open file and write it to disk.
-                    Logic.UtilitiesLogic.WriteToQuizFile(Program.QUIZ_LIST);
+                    Logic.UtilitiesLogic.WriteToQuizFile(Program.QuizList);
                     Logic.UtilitiesLogic.WriteToQuestionFile(QuestionList, quiz.QuizFileName);
 
                     UI.UtilitiesUI.DisplayMessage("Quiz and questions added successfully");  
@@ -69,7 +69,7 @@ namespace Quizzer.Logic
                 case 'E':
                     // List Quizes
                     UI.EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
-                    foreach (Quiz q in Program.QUIZ_LIST)
+                    foreach (Quiz q in Program.QuizList)
                     {
                         Console.WriteLine(q);
                     }
@@ -91,7 +91,7 @@ namespace Quizzer.Logic
                 case 'D':
                     // List Quizes
                     UI.EditorUI.DisplayEditorActionsHeader("Delete", "Choose a list to delete");
-                    foreach (Quiz q in Program.QUIZ_LIST)
+                    foreach (Quiz q in Program.QuizList)
                     {
                         Console.WriteLine(q);
                     }

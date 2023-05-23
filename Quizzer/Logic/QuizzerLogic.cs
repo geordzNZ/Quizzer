@@ -24,7 +24,7 @@ namespace Quizzer.Logic
                     // List Quizes
                     UI.QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
                     int quizCounter = 1;
-                    foreach (Quiz q in Program.QUIZ_LIST)
+                    foreach (Quiz q in Program.QuizList)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write($"\t{quizCounter}: ");
@@ -39,8 +39,8 @@ namespace Quizzer.Logic
                         quizCounter++;
                     }
                     UI.UtilitiesUI.DisplayDivider();
-                    int selectedQuizNumber = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID", 1, Program.QUIZ_LIST.Count);
-                    TakeQuiz(Program.QUIZ_LIST[selectedQuizNumber-1]);
+                    int selectedQuizNumber = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID", 1, Program.QuizList.Count);
+                    TakeQuiz(Program.QuizList[selectedQuizNumber-1]);
 
 
 

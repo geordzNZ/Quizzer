@@ -103,7 +103,7 @@ namespace Quizzer.Logic
                 // Validate user input
                 int validatedNumber;
                 bool numberValidation = int.TryParse(userInput, out validatedNumber);
-                if (numberValidation && validatedNumber >= 1 && validatedNumber <= Program.QUIZ_LIST.Count)
+                if (numberValidation && validatedNumber >= 1 && validatedNumber <= Program.QuizList.Count)
                 {
                     return validatedNumber;
                 }

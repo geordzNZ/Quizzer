@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizzer.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,33 @@ namespace Quizzer.UI
             Console.WriteLine($"\n\t{message}");
             DisplayDivider();
             Thread.Sleep(Program.POPUP_TIME);
+        }
+
+
+        public static void DisplayAvailableQuizes()
+        {
+            // List Quizes
+            int quizCounter = 1;
+            foreach (Quiz q in Program.QuizList)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"\t{quizCounter}: ");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write($"{q.QuizName}");
+                Console.ResetColor();
+                Console.Write($"  -  Created by {q.Author} (");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write($"{q.QuestionsCount} {(q.QuestionsCount > 1 ? "questions" : "question")}");
+                Console.ResetColor();
+                Console.Write($")\n");
+                quizCounter++;
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\t0: ");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"Return to menu\n");
+
+            UI.UtilitiesUI.DisplayDivider();
         }
     }  //  End of internal class UtilitiesUI
 }  //  End of namespace Quizzer.UI 

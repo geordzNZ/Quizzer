@@ -28,24 +28,20 @@ namespace Quizzer.Logic
                         break;
                     }
 
-                    int quizCounter = 1;
-                    foreach (Quiz q in Program.QuizList)
+                    // Display available Quizzes
+                    UI.UtilitiesUI.DisplayAvailableQuizes();
+
+                    // Get Quiz to edit
+                    int selectedQuizToPlay = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
+
+                    // Return to menu if selected
+                    if (selectedQuizToPlay == 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write($"\t{quizCounter}: ");
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.Write($"{q.QuizName}");
-                        Console.ResetColor();
-                        Console.Write($"  -  Created by {q.Author} (");
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write($"{q.QuestionsCount} {(q.QuestionsCount > 1 ? "questions" : "question")}");
-                        Console.ResetColor();
-                        Console.Write($")\n");
-                        quizCounter++;
+                        break;
                     }
-                    UI.UtilitiesUI.DisplayDivider();
-                    int selectedQuizNumber = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID", 1, Program.QuizList.Count);
-                    TakeQuiz(Program.QuizList[selectedQuizNumber-1]);
+
+                    // Play the Quiz
+                    TakeQuiz(Program.QuizList[selectedQuizToPlay - 1]);
 
                     char tempPauser = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
 

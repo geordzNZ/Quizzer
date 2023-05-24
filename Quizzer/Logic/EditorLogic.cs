@@ -74,13 +74,18 @@ namespace Quizzer.Logic
                         UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Edit)\n\t\tReturning to the main menu...");
                         break;
                     }
-                    foreach (Quiz q in Program.QuizList)
+
+                    // Display available Quizzes
+                    UI.UtilitiesUI.DisplayAvailableQuizes();
+                    
+                    // Get Quiz to edit
+                    int selectedQuizToEdit = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Edit", 0, Program.QuizList.Count);
+
+                    // Return to menu if selected
+                    if (selectedQuizToEdit == 0)
                     {
-                        Console.WriteLine(q);
+                        break;
                     }
-
-
-
 
                     UI.UtilitiesUI.DisplayMessage("WIP - Coming soon!!!");
                     char tempPauser1 = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
@@ -103,32 +108,26 @@ namespace Quizzer.Logic
                         break;
                     }
 
-                    // List Quizes
-                    int quizCounter = 1;
-                    foreach (Quiz q in Program.QuizList)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write($"\t{quizCounter}: ");
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.Write($"{q.QuizName}");
-                        Console.ResetColor();
-                        Console.Write($"  -  Created by {q.Author} (");
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write($"{q.QuestionsCount} {(q.QuestionsCount > 1 ? "questions" : "question")}");
-                        Console.ResetColor();
-                        Console.Write($")\n");
-                        quizCounter++;
-                    }
-                    UI.UtilitiesUI.DisplayDivider();
-                    
-                    // Get Quiz to remove and confirm
-                    int selectedQuiztoDelete = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Delete", 1, Program.QuizList.Count);
+                    // Display available Quizzes
+                    UI.UtilitiesUI.DisplayAvailableQuizes();
 
+                    // Get Quiz to remove 
+                    int selectedQuiztoDelete = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Delete", 0, Program.QuizList.Count);
+
+                    // Return to menu if selected
+                    if (selectedQuiztoDelete == 0)
+                    {
+                        break;
+                    }
+
+                    // Display selected quiz details
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"\t{Program.QuizList[selectedQuiztoDelete - 1].QuizName}");
                     Console.Write($"  -  Created by {Program.QuizList[selectedQuiztoDelete - 1].Author}");
                     Console.Write($"\tTo be deleted\n");
                     Console.ResetColor();
+                    
+                    // Prompt to confirm deletion and process accordingly
                     char confirmDeletion = Logic.UtilitiesLogic.GetUserInputChar("Confirm deletion of this quiz","YN");
 
                     if (confirmDeletion == 'Y')

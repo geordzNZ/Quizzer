@@ -71,7 +71,7 @@ namespace Quizzer.Logic
                     UI.EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
                     if (Program.QuizList.Count == 0)
                     {
-                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Edit)\n\t\tReturning to the main menu...");
                         break;
                     }
                     foreach (Quiz q in Program.QuizList)
@@ -94,41 +94,62 @@ namespace Quizzer.Logic
                     // Return to Editor Menu
                     break;
                 case 'D':
-                    // List Quizes
                     UI.EditorUI.DisplayEditorActionsHeader("Delete", "Choose a list to delete");
+                    
+                    // Catch when ther are no quizzes to display
                     if (Program.QuizList.Count == 0)
                     {
-                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Delete)\n\t\tReturning to the main menu...");
                         break;
                     }
 
+                    // List Quizes
+                    int quizCounter = 1;
                     foreach (Quiz q in Program.QuizList)
                     {
-                        Console.WriteLine(q);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\t{quizCounter}: ");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.Write($"{q.QuizName}");
+                        Console.ResetColor();
+                        Console.Write($"  -  Created by {q.Author} (");
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.Write($"{q.QuestionsCount} {(q.QuestionsCount > 1 ? "questions" : "question")}");
+                        Console.ResetColor();
+                        Console.Write($")\n");
+                        quizCounter++;
                     }
+                    UI.UtilitiesUI.DisplayDivider();
+                    
+                    // Get Quiz to remove and confirm
+                    int selectedQuiztoDelete = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Delete", 1, Program.QuizList.Count);
 
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"\t{Program.QuizList[selectedQuiztoDelete - 1].QuizName}");
+                    Console.Write($"  -  Created by {Program.QuizList[selectedQuiztoDelete - 1].Author}");
+                    Console.Write($"\tTo be deleted\n");
+                    Console.ResetColor();
+                    char confirmDeletion = Logic.UtilitiesLogic.GetUserInputChar("Confirm deletion of this quiz","YN");
 
-
-
-
-                    UI.UtilitiesUI.DisplayMessage("WIP - Coming soon!!!");
-                    char tempPauser2 = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
-
-                    // Choose Quiz
-                    // Confirm deletion - soft or hard delete?
-                    //   - Soft ... mark Quiz status as deleted
-                    //   - Hard ... remove fully from Quiz file
-                    //          ... delete the questions file
-                    // Confirm deletion completed
-                    // Return to Editor Menu
+                    if (confirmDeletion == 'Y')
+                    {
+                        UI.UtilitiesUI.DisplayMessage(Program.QuizList[selectedQuiztoDelete - 1].QuizName + " has been deleted");
+                        // Clean up Question file and the Quiz header
+                        File.Delete(Program.DATASTORE_PATH + Program.QuizList[selectedQuiztoDelete - 1].QuizFileName);
+                        Program.QuizList.Remove(Program.QuizList[selectedQuiztoDelete - 1]);
+                        
+                        // Update QuizList.txt after removal
+                        Logic.UtilitiesLogic.WriteToQuizFile(Program.QuizList);
+                    }
+                    else
+                    {
+                        UI.UtilitiesUI.DisplayMessage(Program.QuizList[selectedQuiztoDelete - 1].QuizName + " has not been deleted");
+                    }
                     break;
                 case 'R':
                     // Return to GameMenu
                     break;
             }
-
-
-
 
             Thread.Sleep(Program.POPUP_TIME);
         }  //  End of static void EditorGameMode

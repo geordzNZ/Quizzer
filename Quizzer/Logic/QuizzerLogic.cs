@@ -46,8 +46,7 @@ namespace Quizzer.Logic
                     char tempPauser = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
 
 
-                    // Output final Quiz results
-                    // Show Quizzer menu again
+                    // TODO Output final Quiz results
                     break;
                 case 'R':
                     // Return to Game Menu
@@ -119,7 +118,19 @@ namespace Quizzer.Logic
 
                 }
             }
-            Console.WriteLine($"You scored {correctAnswers} correct, out of {askedQuestionList.Count} -- {(correctAnswers / askedQuestionList.Count)}%");
+            // Display Quiz outcome
+            Console.Write($"\n\tYou scored ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($"{correctAnswers}");
+            Console.ResetColor();
+            Console.Write($" correct, out of ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($"{askedQuestionList.Count}");
+            Console.ResetColor();
+            Console.Write($" -- ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"{(correctAnswers / (double)askedQuestionList.Count).ToString("P1")}");
+            Console.ResetColor();
         }
 
     }  //  End of internal class QuizzerLogic

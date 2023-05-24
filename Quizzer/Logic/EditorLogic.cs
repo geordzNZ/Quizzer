@@ -138,7 +138,7 @@ namespace Quizzer.Logic
                         File.Delete(Program.DATASTORE_PATH + Program.QuizList[selectedQuiztoDelete - 1].QuizFileName);
                         Program.QuizList.Remove(Program.QuizList[selectedQuiztoDelete - 1]);
                         
-                        // Update QuizList.txt after removal
+                        // Update QuizList.xml after removal
                         Logic.UtilitiesLogic.WriteToQuizFile(Program.QuizList);
                     }
                     else

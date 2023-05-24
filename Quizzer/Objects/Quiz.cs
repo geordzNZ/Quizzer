@@ -21,7 +21,7 @@ namespace Quizzer.Objects
             {
                 tempFileName += char.IsLetterOrDigit(c) ? c : '_';
             }
-            return $"QuestionsFor_{tempFileName}.txt";
+            return $"QuestionsFor_{tempFileName}.xml";
         }  //  End of public string MakeFileName
 
         public override string ToString()

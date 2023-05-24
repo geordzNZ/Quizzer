@@ -9,7 +9,7 @@ namespace Quizzer
     {
         public const int POPUP_TIME = 750;
         public const string DATASTORE_PATH = @"C:\Users\Geordie\Documents\Dev\C-Sharp\RaketeMentoring\Projects\Module06\Data\";
-        public const string QUIZ_LIST_FILENAME = "QuizList.txt";
+        public const string QUIZ_LIST_FILENAME = "QuizList.xml";
         //public static int CURRENT_QUIZ_COUNT = 0;
         public static List<Quiz> QuizList = new List<Quiz>();
         

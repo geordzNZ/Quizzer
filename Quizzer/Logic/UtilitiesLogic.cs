@@ -48,8 +48,9 @@ namespace Quizzer.Logic
         /// Takes a prompt and gets a string input from the user
         /// </summary>
         /// <param name="userPrompt">Question to be posed to the user</param>
-        /// <returns>a non zero length string</returns>
-        public static string GetUserInputString(string userPrompt)
+        /// <param name="blanksOK">Optional - If blank is a valid answer to this prompt, defualts to false (blanks not allowed)</param>
+        /// <returns>a string input by user</returns>
+        public static string GetUserInputString(string userPrompt, bool blanksOK = false)
         {
             // Get user input
             string userInput = "";
@@ -63,11 +64,19 @@ namespace Quizzer.Logic
                 int forErrorCursorLeft = Console.CursorLeft;
                 int forErrorCursorTop = Console.CursorTop;
                 userInput = Console.ReadLine();
-                
+
                 if (userInput.Length != 0)
                 {
                     return userInput;
                 }
+                else
+                {
+                    if (blanksOK)
+                    {
+                        return "";
+                    }
+                }
+
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.SetCursorPosition(forErrorCursorLeft, forErrorCursorTop);

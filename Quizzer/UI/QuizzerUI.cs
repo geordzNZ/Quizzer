@@ -9,6 +9,10 @@ namespace Quizzer.UI
     internal class QuizzerUI
     {
 
+
+        /// <summary>
+        /// Display header section for Quizzer mode
+        /// </summary>
         public static void DisplayQuizzerInstructions()
         {
             UI.GameUI.DisplayGameHeader();
@@ -18,6 +22,12 @@ namespace Quizzer.UI
             UI.UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayQuizzerInstructions
 
+
+        /// <summary>
+        /// Display header section for Quizzer mode specific actions
+        /// </summary>
+        /// <param name="action">indication of action user has chosen</param>
+        /// <param name="prompt">sub text for more info</param>
         public static void DisplayQuizzerActionsHeader(string action, string prompt)
         {
             UI.GameUI.DisplayGameHeader();
@@ -26,6 +36,7 @@ namespace Quizzer.UI
             UI.UtilitiesUI.DisplayDivider();
             Console.SetCursorPosition(0, Console.CursorTop + 1);
         }  //  End of public static void DisplayEditorActionsHeader
+
 
     }  //  End of internal class Quizzer
 }  //  End of namespace Quizzer.UI

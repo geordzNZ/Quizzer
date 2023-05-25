@@ -10,20 +10,22 @@ namespace Quizzer
         public const int POPUP_TIME = 750;
         public const string DATASTORE_PATH = @"C:\Users\Geordie\Documents\Dev\C-Sharp\RaketeMentoring\Projects\Module06\Data\";
         public const string QUIZ_LIST_FILENAME = "QuizList.xml";
-        //public static int CURRENT_QUIZ_COUNT = 0;
         public static List<Quiz> QuizList = new List<Quiz>();
         
 
         static void Main(string[] args)
         {
-            char gameMode = ' ';
+
+            // Check if file exists for first run, ope if it exists
             if (File.Exists(DATASTORE_PATH + QUIZ_LIST_FILENAME))
             {
                 Program.QuizList = Logic.UtilitiesLogic.ReadFromQuizFile();
             }
 
-            while (gameMode != 'X')
+            char gameMode = ' ';
+            while (gameMode != 'X')  // X = Exit
             {
+                // Initial game info and get game mode
                 UI.GameUI.DisplayGameHeader();
                 UI.GameUI.DisplayGameModeInstructions();
                 gameMode = Logic.UtilitiesLogic.GetUserInputChar("Choose a game mode", "EQX");
@@ -31,16 +33,14 @@ namespace Quizzer
                  
                 switch (gameMode)
                 {
-                    case 'E':
+                    case 'E':  //  E = Editor mode
                         Logic.EditorLogic.EditorGameMode();
                         break;
-                    case 'Q':
+
+                    case 'Q':  //  Q = Quizzer mode
                         Logic.QuizzerLogic.QuizzerGameMode();
                         break;
                 }
-
-
-
             }
         } // end of static void Main
 

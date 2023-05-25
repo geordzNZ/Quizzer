@@ -11,6 +11,10 @@ namespace Quizzer.Logic
     internal class QuizzerLogic
     {
 
+
+        /// <summary>
+        /// Controls Quisser game mode
+        /// </summary>
         public static void QuizzerGameMode()
         {
             UI.QuizzerUI.DisplayQuizzerInstructions();
@@ -19,9 +23,11 @@ namespace Quizzer.Logic
 
             switch (quizzerAction)
             {
-                case 'L':
+                case 'L':  // List quizzes to play
                     // List Quizes
                     UI.QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
+
+                    // Handle if there are no saved quizzes to display
                     if (Program.QuizList.Count == 0)
                     {
                         UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
@@ -43,13 +49,9 @@ namespace Quizzer.Logic
                     // Play the Quiz
                     TakeQuiz(Program.QuizList[selectedQuizToPlay - 1]);
 
-                    char tempPauser = Logic.UtilitiesLogic.GetUserInputChar(" ... pauser ... ", "Y");
-
-
-                    // TODO Output final Quiz results
                     break;
-                case 'R':
-                    // Return to Game Menu
+
+                case 'R':  // Return to Game Menu
                     break;
             }
 
@@ -58,9 +60,14 @@ namespace Quizzer.Logic
         }  //  End of static void QuizzerGameMode
 
 
+        /// <summary>
+        /// Controls taking of the selected quiz, with displays and formatting
+        /// </summary>
+        /// <param name="quiz">the select quiz</param>
         public static void TakeQuiz(Objects.Quiz quiz)
         {
-            UI.QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answering");
+            //Display quiz details, ready for the questions
+            UI.QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answerings");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"\t{quiz.QuizName}");
             Console.ResetColor();
@@ -74,16 +81,18 @@ namespace Quizzer.Logic
             List<Question> allQuestionList = Logic.UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
             List<Question> askedQuestionList = new List<Question>();
             
-            // 
+            // Set up for vairables
             Random randomQuestion = new Random();
             Random randomAnswer = new Random();
-
             int correctAnswers = 0;
 
+            // Work thru List of questions and control flow
             for (int i = 0; i < quiz.QuestionsCount; i++)
             {
+                // Random ID for randomising the Questions
                 int randomQuestionID = randomQuestion.Next(allQuestionList.Count);
 
+                // Set up and Process available answers
                 string answers = allQuestionList[randomQuestionID].WrongAnswers;
                 answers += '/' + allQuestionList[randomQuestionID].CorrectAnswer;
                 List<string> allAnswersList = answers.Split('/').ToList();
@@ -91,6 +100,7 @@ namespace Quizzer.Logic
                 int totalAnswers = allAnswersList.Count;
                 int userAnswerID = 999;
 
+                // Display Question and available randomises answers 
                 Console.WriteLine($"\t\tQ:  {allQuestionList[randomQuestionID].QuestionPrompt}");
                 for (int j = 0; j < totalAnswers; j++)
                 {
@@ -98,14 +108,16 @@ namespace Quizzer.Logic
 
                     Console.WriteLine($"\t\t\t{j + 1}:  {allAnswersList[randomAnswerID]}");
 
+                    // Keep track of answers
                     usedAnswersList.Add(allAnswersList[randomAnswerID]);
                     allAnswersList.Remove(allAnswersList[randomAnswerID]);
                 }
 
-
+                // Keep track of questions
                 askedQuestionList.Add(allQuestionList[randomQuestionID]);
                 allQuestionList.Remove(allQuestionList[randomQuestionID]);
 
+                // Get answer from user and check if correct
                 userAnswerID = Logic.UtilitiesLogic.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
                 if (usedAnswersList[userAnswerID - 1] == askedQuestionList[askedQuestionList.Count - 1].CorrectAnswer)
                 {
@@ -118,6 +130,7 @@ namespace Quizzer.Logic
 
                 }
             }
+
             // Display Quiz outcome
             Console.Write($"\n\tYou scored ");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -131,7 +144,7 @@ namespace Quizzer.Logic
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"{(correctAnswers / (double)askedQuestionList.Count).ToString("P1")}");
             Console.ResetColor();
-        }
+        }  //  End of public static void TakeQuiz
 
     }  //  End of internal class QuizzerLogic
 }  //  End of namespace Quizzer.Logic

@@ -13,10 +13,15 @@ namespace Quizzer.Objects
         public string CorrectAnswer;
         public string WrongAnswers;
 
+
+        /// <summary>
+        /// repurposed standard output
+        /// </summary>
+        /// <returns>formatted Question details</returns>
         public override string ToString()
         {
             return $"\t\tID: {QuestionID} -- {QuestionPrompt} -- {CorrectAnswer} / {WrongAnswers}";
-        }  //  End of public override string ToString
+        }
 
 
     }  //  End of public class Question

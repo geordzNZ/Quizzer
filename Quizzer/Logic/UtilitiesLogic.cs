@@ -44,6 +44,7 @@ namespace Quizzer.Logic
             } 
         }  //  End of public static char GetCharUserInput
 
+
         /// <summary>
         /// Takes a prompt and gets a string input from the user
         /// </summary>
@@ -84,8 +85,9 @@ namespace Quizzer.Logic
                 Console.ResetColor();
                 Thread.Sleep(Program.POPUP_TIME);
             }
-               // return "xxx";
-        }
+            // return "xxx";
+        }  //  End of public static string GetUserInputString
+
 
         /// <summary>
         /// Takes a prompt and gets an int input from the user
@@ -124,10 +126,14 @@ namespace Quizzer.Logic
                 Console.ResetColor();
                 Thread.Sleep(Program.POPUP_TIME);
             }
+        }  //  End of public static int GetUserInputNumber
 
-        }
 
-            public static List<Quiz> ReadFromQuizFile()
+        /// <summary>
+        /// Open Quiz file and read as input
+        /// </summary>
+        /// <returns>List of type Quiz</returns>
+        public static List<Quiz> ReadFromQuizFile()
         {
             XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Objects.Quiz>));
             using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
@@ -136,6 +142,11 @@ namespace Quizzer.Logic
             }
         }  //  End of public static List<Quiz> GetCurrentQuizzes
 
+
+        /// <summary>
+        /// Output list of type quiz to file
+        /// </summary>
+        /// <param name="quiz">Quiz list to output</param>
         public static void WriteToQuizFile(List<Quiz> quiz)
         {
             XmlSerializer xmlQuizWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
@@ -145,6 +156,12 @@ namespace Quizzer.Logic
             }
         }  //  End of public static void WriteToQuizFile
 
+
+        /// <summary>
+        /// Open Question file and read as input
+        /// </summary>
+        /// <param name="filename">The file to open as listed in the Quiz List</param>
+        /// <returns>List of type Question</returns>
         public static List<Question> ReadFromQuestionFile(string filename)
         {
             XmlSerializer xmlQuestionReader = new XmlSerializer(typeof(List<Objects.Question>));
@@ -155,6 +172,12 @@ namespace Quizzer.Logic
             }
         }  //  End of public static List<Question> ReadFromQuestionFile
 
+
+        /// <summary>
+        /// Output list of type Question to file
+        /// </summary>
+        /// <param name="questions">The Questions list to ouput</param>
+        /// <param name="filename">the filename to save to</param>
         public static void WriteToQuestionFile(List<Question> questions, string filename)
         {
             XmlSerializer xmlQuestionWriter = new XmlSerializer(typeof(List<Objects.Question>));
@@ -163,6 +186,7 @@ namespace Quizzer.Logic
                 xmlQuestionWriter.Serialize(file, questions);
             }
         }  //  End of public static void WriteToQuestionFile
+
 
     }  //  End of internal class UtilitiesLogic
 }  //  Quizzer.Logic

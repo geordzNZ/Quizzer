@@ -13,17 +13,20 @@ namespace Quizzer.Logic
 {
     internal class EditorLogic
     {
+        /// <summary>
+        /// Controller for Editor Game Mode
+        /// </summary>
         public static void EditorGameMode()
         {
+            // Prompt user for Game Mode and process input
             UI.EditorUI.DisplayEditorInstructions();
-
             char editorAction = Logic.UtilitiesLogic.GetUserInputChar("Choose an Editor action", "CEDR");
             Console.SetCursorPosition(0, Console.CursorTop + 1);
 
             switch (editorAction)
             {
                 case 'C':  // Create a Quiz
-
+                    // Header section
                     UI.EditorUI.DisplayEditorActionsHeader("Create", "Follow the prompts to create your new quiz");
 
                     // Set up for new Quiz
@@ -41,7 +44,8 @@ namespace Quizzer.Logic
                     List<Question> QuestionList = new List<Question>();
                     char addAnotherQuestion = 'Y';
                     int questionCounter = 0;
-
+    
+                    // Prompt and store question(s)
                     while (addAnotherQuestion == 'Y')
                     {
                         Objects.Question question = new Objects.Question();
@@ -58,6 +62,7 @@ namespace Quizzer.Logic
                         addAnotherQuestion = Logic.UtilitiesLogic.GetUserInputChar("Add another Question", "YN");
                     }
 
+                    // Add Quiz inifo to master Quiz list
                     quiz.QuestionsCount = QuestionList.Count;
                     Program.QuizList.Add(quiz);
 
@@ -219,10 +224,9 @@ namespace Quizzer.Logic
 
                 case 'R':   // Return to GameMenu
                     break;
+
             }
-
         }  //  End of static void EditorGameMode
-
 
 
     }  //  End of internal class EditorLogic

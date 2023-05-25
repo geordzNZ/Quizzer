@@ -9,6 +9,10 @@ namespace Quizzer.UI
     internal class EditorUI
     {
 
+
+        /// <summary>
+        /// Display header section for Editor mode
+        /// </summary>
         public static void DisplayEditorInstructions()
         {
             UI.GameUI.DisplayGameHeader();
@@ -18,8 +22,14 @@ namespace Quizzer.UI
             Console.WriteLine("\t  - D = Delete a current quiz.");
             Console.WriteLine("\t  - R = Return to game menu.");
             UI.UtilitiesUI.DisplayDivider();
-        }  //  End of public static void DisplayEditorInstructions
+        }
 
+
+        /// <summary>
+        /// Display header section for Editor mode specific actions
+        /// </summary>
+        /// <param name="action">indication of action user has chosen</param>
+        /// <param name="prompt">sub text for more info</param>
         public static void DisplayEditorActionsHeader(string action, string prompt)
         {
             UI.GameUI.DisplayGameHeader();
@@ -27,7 +37,8 @@ namespace Quizzer.UI
             Console.WriteLine($"\t  {prompt}");
             UI.UtilitiesUI.DisplayDivider();
             Console.SetCursorPosition(0, Console.CursorTop + 1);
-        }  //  End of public static void DisplayEditorActionsHeader
+        }
+
 
     }  //  End of internal calss EditorUI
 }  //  namespace Quizzer.UI

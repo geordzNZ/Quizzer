@@ -9,17 +9,20 @@ namespace Quizzer.UI
 {
     internal class UtilitiesUI
     {
-        const string DIVIDER = "===================================================================";
-        const string BLANKER = "                                                                                ";
+        const string DIVIDER = "=====================================================================";
+        const string BLANKER = "                                                                                  ";
+       
+
         /// <summary>
-        /// Displays defualt divider line with formatting
+        /// Displays default divider line with formatting to standardize
         /// </summary>
         public static void DisplayDivider()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(DIVIDER);
             Console.ResetColor();
-        }  //  End of public static void DisplayDivider
+        }
+
 
         /// <summary>
         /// Blanks out certain parts of the sreen, based on params and repositions cursor for next input
@@ -31,9 +34,13 @@ namespace Quizzer.UI
             Console.SetCursorPosition(left, top);
             Console.Write(BLANKER);
             Console.SetCursorPosition(0, top);
-        }  //  End of public static void DisplayBlanker
+        }
 
 
+        /// <summary>
+        /// Standardised meesage display with formatting
+        /// </summary>
+        /// <param name="message"></param>
         public static void DisplayMessage(string message)
         {
             Console.WriteLine($"\n\t{message}");
@@ -42,6 +49,9 @@ namespace Quizzer.UI
         }
 
 
+        /// <summary>
+        /// Process the Quiz List to format and display output
+        /// </summary>
         public static void DisplayAvailableQuizes()
         {
             // List Quizes
@@ -66,6 +76,8 @@ namespace Quizzer.UI
             Console.Write($"Return to menu\n");
 
             UI.UtilitiesUI.DisplayDivider();
-        }
+        }  //  End of public static void DisplayAvailableQuizes
+
+
     }  //  End of internal class UtilitiesUI
 }  //  End of namespace Quizzer.UI 

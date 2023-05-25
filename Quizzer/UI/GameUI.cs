@@ -8,6 +8,10 @@ namespace Quizzer.UI
 {
     public static class GameUI
     {
+
+        /// <summary>
+        /// Game Title section
+        /// </summary>
         public static void DisplayGameHeader()
         {
             Console.Clear();
@@ -18,6 +22,10 @@ namespace Quizzer.UI
             UI.UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayHeader
 
+
+        /// <summary>
+        /// Game mode instructions display
+        /// </summary>
         public static void DisplayGameModeInstructions()
         {
             Console.WriteLine("\tGame mode:");
@@ -26,7 +34,6 @@ namespace Quizzer.UI
             Console.WriteLine("\t  - X = Exit    --> Run away an hide.");
             UI.UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayGameModeInstructions
-
 
 
     }  //  End of public static class ProgramUI

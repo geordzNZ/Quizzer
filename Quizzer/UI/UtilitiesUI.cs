@@ -1,9 +1,5 @@
 ﻿using Quizzer.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Quizzer.UI
 {
@@ -75,7 +71,7 @@ namespace Quizzer.UI
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"Return to menu\n");
 
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayAvailableQuizes
 
 

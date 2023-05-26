@@ -1,8 +1,8 @@
-﻿using System.Transactions;
-using System.Xml.Serialization;
-using Quizzer.Objects;
-
+﻿using Quizzer.Objects;
+using Quizzer.Logic;
 using Quizzer.UI;
+
+
 namespace Quizzer
 {
     internal class Program
@@ -18,26 +18,26 @@ namespace Quizzer
             // Check if file exists for first run, ope if it exists
             if (File.Exists(QUIZ_LIST_FILENAME))
                 {
-                    Program.QuizList = Logic.UtilitiesLogic.ReadFromQuizFile();
+                    QuizList = UtilitiesLogic.ReadFromQuizFile();
             }
 
             char gameMode = ' ';
             while (gameMode != 'X')  // X = Exit
             {
                 // Initial game info and get game mode
-                UI.GameUI.DisplayGameHeader();
-                UI.GameUI.DisplayGameModeInstructions();
-                gameMode = Logic.UtilitiesLogic.GetUserInputChar("Choose a game mode", "EQX");
+                GameUI.DisplayGameHeader();
+                GameUI.DisplayGameModeInstructions();
+                gameMode = UtilitiesLogic.GetUserInputChar("Choose a game mode", "EQX");
 
                  
                 switch (gameMode)
                 {
                     case 'E':  //  E = Editor mode
-                        Logic.EditorLogic.EditorGameMode();
+                        EditorLogic.EditorGameMode();
                         break;
 
                     case 'Q':  //  Q = Quizzer mode
-                        Logic.QuizzerLogic.QuizzerGameMode();
+                        QuizzerLogic.QuizzerGameMode();
                         break;
                 }
             }

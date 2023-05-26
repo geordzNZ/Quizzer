@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Quizzer.UI
 {
@@ -19,7 +15,7 @@ namespace Quizzer.UI
             Console.WriteLine("\t\tWELCOME TO QUIZZING QUIZZER");
             Console.WriteLine("\t\tCome and test your knowledge");
             Console.ResetColor();
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayHeader
 
 
@@ -32,7 +28,7 @@ namespace Quizzer.UI
             Console.WriteLine("\t  - E = Editor  --> Create / Edit quizzes.");
             Console.WriteLine("\t  - Q = Quizzer --> Test your skills.");
             Console.WriteLine("\t  - X = Exit    --> Run away an hide.");
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayGameModeInstructions
 
 

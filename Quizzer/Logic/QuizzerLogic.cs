@@ -1,10 +1,6 @@
 ﻿using Quizzer.Objects;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quizzer.UI;
+
 
 namespace Quizzer.Logic
 {
@@ -17,28 +13,28 @@ namespace Quizzer.Logic
         /// </summary>
         public static void QuizzerGameMode()
         {
-            UI.QuizzerUI.DisplayQuizzerInstructions();
-            char quizzerAction = Logic.UtilitiesLogic.GetUserInputChar("Choose an Quizzer action", "LR");
+            QuizzerUI.DisplayQuizzerInstructions();
+            char quizzerAction = UtilitiesLogic.GetUserInputChar("Choose an Quizzer action", "LR");
             Thread.Sleep(Program.POPUP_TIME);
 
             switch (quizzerAction)
             {
                 case 'L':  // List quizzes to play
                     // List Quizes
-                    UI.QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
+                    QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
 
                     // Handle if there are no saved quizzes to display
                     if (Program.QuizList.Count == 0)
                     {
-                        UI.UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                        UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
                         break;
                     }
 
                     // Display available Quizzes
-                    UI.UtilitiesUI.DisplayAvailableQuizes();
+                    UtilitiesUI.DisplayAvailableQuizes();
 
                     // Get Quiz to edit
-                    int selectedQuizToPlay = Logic.UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
+                    int selectedQuizToPlay = UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
 
                     // Return to menu if selected
                     if (selectedQuizToPlay == 0)
@@ -67,7 +63,7 @@ namespace Quizzer.Logic
         public static void TakeQuiz(Objects.Quiz quiz)
         {
             //Display quiz details, ready for the questions
-            UI.QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answerings");
+            QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answerings");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"\t{quiz.QuizName}");
             Console.ResetColor();
@@ -78,7 +74,7 @@ namespace Quizzer.Logic
             Console.Write($")\n");
 
             // Retrieve Questions from file
-            List<Question> allQuestionList = Logic.UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
+            List<Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
             List<Question> askedQuestionList = new List<Question>();
             
             // Set up for vairables
@@ -118,7 +114,7 @@ namespace Quizzer.Logic
                 allQuestionList.Remove(allQuestionList[randomQuestionID]);
 
                 // Get answer from user and check if correct
-                userAnswerID = Logic.UtilitiesLogic.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
+                userAnswerID = UtilitiesLogic.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
                 if (usedAnswersList[userAnswerID - 1] == askedQuestionList[askedQuestionList.Count - 1].CorrectAnswer)
                 {
                     Console.WriteLine($"\t\tCORRECT!!");

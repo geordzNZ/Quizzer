@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Quizzer.UI
 {
@@ -15,13 +11,13 @@ namespace Quizzer.UI
         /// </summary>
         public static void DisplayEditorInstructions()
         {
-            UI.GameUI.DisplayGameHeader();
+            GameUI.DisplayGameHeader();
             Console.WriteLine("\tEDITOR Game Menu");
             Console.WriteLine("\t  - C = Create a new quiz.");
             Console.WriteLine("\t  - E = Edit a current quiz.");
             Console.WriteLine("\t  - D = Delete a current quiz.");
             Console.WriteLine("\t  - R = Return to game menu.");
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
         }
 
 
@@ -32,10 +28,10 @@ namespace Quizzer.UI
         /// <param name="prompt">sub text for more info</param>
         public static void DisplayEditorActionsHeader(string action, string prompt)
         {
-            UI.GameUI.DisplayGameHeader();
+            GameUI.DisplayGameHeader();
             Console.WriteLine($"\tEDITOR Game Mode - {action} a quiz");
             Console.WriteLine($"\t  {prompt}");
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
             Console.SetCursorPosition(0, Console.CursorTop + 1);
         }
 

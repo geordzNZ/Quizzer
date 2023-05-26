@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quizzer.Logic;
+using Quizzer.Objects;
+
 
 namespace Quizzer.UI
 {
@@ -15,11 +13,11 @@ namespace Quizzer.UI
         /// </summary>
         public static void DisplayQuizzerInstructions()
         {
-            UI.GameUI.DisplayGameHeader();
+            GameUI.DisplayGameHeader();
             Console.WriteLine("\tQUIZZER Game Menu");
             Console.WriteLine("\t  - L = List Available quizes.");
             Console.WriteLine("\t  - R = Return to game menu.");
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
         }  //  End of public static void DisplayQuizzerInstructions
 
 
@@ -30,10 +28,10 @@ namespace Quizzer.UI
         /// <param name="prompt">sub text for more info</param>
         public static void DisplayQuizzerActionsHeader(string action, string prompt)
         {
-            UI.GameUI.DisplayGameHeader();
+            GameUI.DisplayGameHeader();
             Console.WriteLine($"\tQuizzer Game Mode - {action} available quizzes");
             Console.WriteLine($"\t  {prompt}");
-            UI.UtilitiesUI.DisplayDivider();
+            UtilitiesUI.DisplayDivider();
             Console.SetCursorPosition(0, Console.CursorTop + 1);
         }  //  End of public static void DisplayEditorActionsHeader
 

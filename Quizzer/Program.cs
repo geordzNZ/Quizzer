@@ -1,14 +1,13 @@
 ﻿using System.Transactions;
 using System.Xml.Serialization;
 using Quizzer.Objects;
-using Quizzer.UI;
 
+using Quizzer.UI;
 namespace Quizzer
 {
     internal class Program
     {
         public const int POPUP_TIME = 750;
-        public const string DATASTORE_PATH = @"C:\Users\Geordie\Documents\Dev\C-Sharp\RaketeMentoring\Projects\Module06\Data\";
         public const string QUIZ_LIST_FILENAME = "QuizList.xml";
         public static List<Quiz> QuizList = new List<Quiz>();
         
@@ -17,9 +16,9 @@ namespace Quizzer
         {
 
             // Check if file exists for first run, ope if it exists
-            if (File.Exists(DATASTORE_PATH + QUIZ_LIST_FILENAME))
-            {
-                Program.QuizList = Logic.UtilitiesLogic.ReadFromQuizFile();
+            if (File.Exists(QUIZ_LIST_FILENAME))
+                {
+                    Program.QuizList = Logic.UtilitiesLogic.ReadFromQuizFile();
             }
 
             char gameMode = ' ';

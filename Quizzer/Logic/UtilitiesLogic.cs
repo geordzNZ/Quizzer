@@ -136,7 +136,7 @@ namespace Quizzer.Logic
         public static List<Quiz> ReadFromQuizFile()
         {
             XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Objects.Quiz>));
-            using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+            using (FileStream file = File.OpenRead(Program.QUIZ_LIST_FILENAME))
             {
                 return xmlQuizReader.Deserialize(file) as List<Objects.Quiz>;
             }
@@ -150,7 +150,7 @@ namespace Quizzer.Logic
         public static void WriteToQuizFile(List<Quiz> quiz)
         {
             XmlSerializer xmlQuizWriter = new XmlSerializer(typeof(List<Objects.Quiz>));
-            using (FileStream file = File.Create(Program.DATASTORE_PATH + Program.QUIZ_LIST_FILENAME))
+            using (FileStream file = File.Create(Program.QUIZ_LIST_FILENAME))
             {
                 xmlQuizWriter.Serialize(file, quiz);
             }
@@ -166,7 +166,8 @@ namespace Quizzer.Logic
         {
             XmlSerializer xmlQuestionReader = new XmlSerializer(typeof(List<Objects.Question>));
 
-            using (FileStream file = File.OpenRead(Program.DATASTORE_PATH + filename))
+            using (FileStream file = File.OpenRead(filename))
+
             {
                 return xmlQuestionReader.Deserialize(file) as List<Objects.Question>;
             }
@@ -181,7 +182,7 @@ namespace Quizzer.Logic
         public static void WriteToQuestionFile(List<Question> questions, string filename)
         {
             XmlSerializer xmlQuestionWriter = new XmlSerializer(typeof(List<Objects.Question>));
-            using (FileStream file = File.Create(Program.DATASTORE_PATH + filename))
+            using (FileStream file = File.Create(filename))
             {
                 xmlQuestionWriter.Serialize(file, questions);
             }

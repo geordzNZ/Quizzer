@@ -210,7 +210,7 @@ namespace Quizzer.Logic
                     {
                         UI.UtilitiesUI.DisplayMessage(Program.QuizList[selectedQuiztoDelete - 1].QuizName + " has been deleted");
                         // Clean up Question file and the Quiz header
-                        File.Delete(Program.DATASTORE_PATH + Program.QuizList[selectedQuiztoDelete - 1].QuizFileName);
+                        File.Delete(Program.QuizList[selectedQuiztoDelete - 1].QuizFileName);
                         Program.QuizList.Remove(Program.QuizList[selectedQuiztoDelete - 1]);
                         
                         // Update QuizList.xml after removal

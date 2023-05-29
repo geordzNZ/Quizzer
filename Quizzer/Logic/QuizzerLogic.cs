@@ -14,7 +14,7 @@ namespace Quizzer.Logic
         public static void QuizzerGameMode()
         {
             QuizzerUI.DisplayQuizzerInstructions();
-            char quizzerAction = UtilitiesLogic.GetUserInputChar("Choose an Quizzer action", "LR");
+            char quizzerAction = UtilitiesUI.GetUserInputChar("Choose an Quizzer action", "LR");
             Thread.Sleep(Program.POPUP_TIME);
 
             switch (quizzerAction)
@@ -34,7 +34,7 @@ namespace Quizzer.Logic
                     UtilitiesUI.DisplayAvailableQuizes();
 
                     // Get Quiz to edit
-                    int selectedQuizToPlay = UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
+                    int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
 
                     // Return to menu if selected
                     if (selectedQuizToPlay == 0)
@@ -114,7 +114,7 @@ namespace Quizzer.Logic
                 allQuestionList.Remove(allQuestionList[randomQuestionID]);
 
                 // Get answer from user and check if correct
-                userAnswerID = UtilitiesLogic.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
+                userAnswerID = UtilitiesUI.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
                 if (usedAnswersList[userAnswerID - 1] == askedQuestionList[askedQuestionList.Count - 1].CorrectAnswer)
                 {
                     Console.WriteLine($"\t\tCORRECT!!");

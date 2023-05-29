@@ -13,7 +13,7 @@ namespace Quizzer.Logic
         {
             // Prompt user for Game Mode and process input
             EditorUI.DisplayEditorInstructions();
-            char editorAction = UtilitiesLogic.GetUserInputChar("Choose an Editor action", "CEDR");
+            char editorAction = UtilitiesUI.GetUserInputChar("Choose an Editor action", "CEDR");
             Console.SetCursorPosition(0, Console.CursorTop + 1);
 
             switch (editorAction)
@@ -27,8 +27,8 @@ namespace Quizzer.Logic
 
                     // Store Quiz object values
                     quiz.QuizID = Program.QuizList.Count + 1;
-                    quiz.QuizName = UtilitiesLogic.GetUserInputString("Quiz Name");
-                    quiz.Author = UtilitiesLogic.GetUserInputString("Author Name");
+                    quiz.QuizName = UtilitiesUI.GetUserInputString("Quiz Name");
+                    quiz.Author = UtilitiesUI.GetUserInputString("Author Name");
                     quiz.QuizFileName = quiz.MakeFileName(quiz.QuizName);
                     Console.CursorTop = Console.CursorTop + 1;
 
@@ -46,13 +46,13 @@ namespace Quizzer.Logic
 
                         // Store Question object values
                         question.QuestionID = questionCounter;
-                        question.QuestionPrompt = UtilitiesLogic.GetUserInputString($"Question {questionCounter} - prompt");
-                        question.CorrectAnswer = UtilitiesLogic.GetUserInputString($"Question {questionCounter} - correct answer");
-                        question.WrongAnswers = UtilitiesLogic.GetUserInputString($"Question {questionCounter} - wrong answers separated by /");
+                        question.QuestionPrompt = UtilitiesUI.GetUserInputString($"Question {questionCounter} - prompt");
+                        question.CorrectAnswer = UtilitiesUI.GetUserInputString($"Question {questionCounter} - correct answer");
+                        question.WrongAnswers = UtilitiesUI.GetUserInputString($"Question {questionCounter} - wrong answers separated by /");
 
                         QuestionList.Add(question);
 
-                        addAnotherQuestion = UtilitiesLogic.GetUserInputChar("Add another Question", "YN");
+                        addAnotherQuestion = UtilitiesUI.GetUserInputChar("Add another Question", "YN");
                     }
 
                     // Add Quiz inifo to master Quiz list
@@ -81,7 +81,7 @@ namespace Quizzer.Logic
                     UtilitiesUI.DisplayAvailableQuizes();
 
                     // Get Quiz to edit
-                    int selectedQuizToEdit = UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Edit", 0, Program.QuizList.Count);
+                    int selectedQuizToEdit = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Edit", 0, Program.QuizList.Count);
 
                     // Return to menu if so selected
                     if (selectedQuizToEdit == 0)
@@ -100,7 +100,7 @@ namespace Quizzer.Logic
                     Console.Write($"\t\tQuizName: ");
                     Console.WriteLine($"{Program.QuizList[selectedQuizToEdit - 1].QuizName}");
                     Console.ResetColor();
-                    string quizNameEdit = Logic.UtilitiesLogic.GetUserInputString("\tUpdate? ", true);
+                    string quizNameEdit = UtilitiesUI.GetUserInputString("\tUpdate? ", true);
                     if (quizNameEdit.Length != 0)
                     {
                         Program.QuizList[selectedQuizToEdit - 1].QuizName = quizNameEdit;
@@ -109,7 +109,7 @@ namespace Quizzer.Logic
                     Console.Write($"\t\tAuthor\t: ");
                     Console.WriteLine($"{Program.QuizList[selectedQuizToEdit - 1].Author}");
                     Console.ResetColor();
-                    string authorEdit = UtilitiesLogic.GetUserInputString("\tUpdate?\t", true);
+                    string authorEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t", true);
                     if (authorEdit.Length != 0)
                     {
                         Program.QuizList[selectedQuizToEdit - 1].Author = authorEdit;
@@ -130,7 +130,7 @@ namespace Quizzer.Logic
                         Console.Write($"\t\tPrompt\t: ");
                         Console.WriteLine($"{q.QuestionPrompt}");
                         Console.ResetColor();
-                        string promptEdit = UtilitiesLogic.GetUserInputString("\tUpdate?\t", true);
+                        string promptEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t", true);
                         if (promptEdit.Length != 0)
                         {
                             q.QuestionPrompt = promptEdit;
@@ -140,7 +140,7 @@ namespace Quizzer.Logic
                         Console.Write($"\t\tCorrect Answer\t: ");
                         Console.WriteLine($"{q.CorrectAnswer}");
                         Console.ResetColor();
-                        string correctEdit = UtilitiesLogic.GetUserInputString("\tUpdate?\t\t", true);
+                        string correctEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t\t", true);
                         if (correctEdit.Length != 0)
                         {
                             q.CorrectAnswer = correctEdit;
@@ -150,7 +150,7 @@ namespace Quizzer.Logic
                         Console.Write($"\t\tWrong Answers\t: ");
                         Console.WriteLine($"{q.WrongAnswers}");
                         Console.ResetColor();
-                        string wrongEdit = UtilitiesLogic.GetUserInputString("\tUpdate?\t\t", true);
+                        string wrongEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t\t", true);
                         if (wrongEdit.Length != 0)
                         {
                             q.WrongAnswers = wrongEdit;
@@ -181,7 +181,7 @@ namespace Quizzer.Logic
                     UtilitiesUI.DisplayAvailableQuizes();
 
                     // Get Quiz to remove 
-                    int selectedQuiztoDelete = UtilitiesLogic.GetUserInputNumber("Choose a quiz ID to Delete", 0, Program.QuizList.Count);
+                    int selectedQuiztoDelete = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Delete", 0, Program.QuizList.Count);
 
                     // Return to menu if selected
                     if (selectedQuiztoDelete == 0)
@@ -197,7 +197,7 @@ namespace Quizzer.Logic
                     Console.ResetColor();
                     
                     // Prompt to confirm deletion and process accordingly
-                    char confirmDeletion = UtilitiesLogic.GetUserInputChar("Confirm deletion of this quiz","YN");
+                    char confirmDeletion = UtilitiesUI.GetUserInputChar("Confirm deletion of this quiz","YN");
 
                     if (confirmDeletion == 'Y')
                     {

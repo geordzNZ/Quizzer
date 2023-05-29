@@ -27,7 +27,7 @@ namespace Quizzer
                 // Initial game info and get game mode
                 GameUI.DisplayGameHeader();
                 GameUI.DisplayGameModeInstructions();
-                gameMode = UtilitiesLogic.GetUserInputChar("Choose a game mode", "EQX");
+                gameMode = UtilitiesUI.GetUserInputChar("Choose a game mode", "EQX");
 
                  
                 switch (gameMode)

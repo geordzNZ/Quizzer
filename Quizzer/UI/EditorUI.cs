@@ -1,9 +1,12 @@
 ﻿
 
+using Quizzer.Objects;
+
 namespace Quizzer.UI
 {
     internal class EditorUI
     {
+
 
 
         /// <summary>

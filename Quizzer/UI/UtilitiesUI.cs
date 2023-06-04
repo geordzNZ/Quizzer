@@ -124,7 +124,9 @@ namespace Quizzer.UI
             {
                 UtilitiesUI.DisplayBlanker(8, Console.CursorTop);
 
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"\t{userPrompt}: ");
+                Console.ResetColor();
                 int forErrorCursorLeft = Console.CursorLeft;
                 int forErrorCursorTop = Console.CursorTop;
                 userInput = Console.ReadLine();

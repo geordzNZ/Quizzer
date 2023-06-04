@@ -49,6 +49,7 @@ namespace Quizzer.Logic
                         question.QuestionPrompt = UtilitiesUI.GetUserInputString($"Question {questionCounter} - prompt");
                         question.CorrectAnswer = UtilitiesUI.GetUserInputString($"Question {questionCounter} - correct answer");
                         question.WrongAnswers = UtilitiesUI.GetUserInputString($"Question {questionCounter} - wrong answers separated by /");
+                        question.TotalAnswers = question.WrongAnswers.Split('/').ToList().Count + 1;
 
                         QuestionList.Add(question);
 

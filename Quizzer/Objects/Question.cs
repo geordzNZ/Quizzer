@@ -1,5 +1,7 @@
 ﻿
 
+using System.Net.NetworkInformation;
+
 namespace Quizzer.Objects
 {
     public class Question
@@ -8,6 +10,7 @@ namespace Quizzer.Objects
         public string QuestionPrompt;
         public string CorrectAnswer;
         public string WrongAnswers;
+        public int TotalAnswers;
 
 
         /// <summary>
@@ -18,7 +21,6 @@ namespace Quizzer.Objects
         {
             return $"\t\tID: {QuestionID} -- {QuestionPrompt} -- {CorrectAnswer} / {WrongAnswers}";
         }
-
 
     }  //  End of public class Question
 }  //  End of namespace Quizzer.Objects

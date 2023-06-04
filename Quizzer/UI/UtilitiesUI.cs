@@ -158,7 +158,7 @@ namespace Quizzer.UI
         /// <param name="userPrompt">the question to prompt the user</param>
         /// <param name="lowerValue">minimum number</param>
         /// <param name="upperValue">maximum number</param>
-        /// <returns></returns>
+        /// <returns>the validated users selection</returns>
         public static int GetUserInputNumber(string userPrompt, int lowerValue, int upperValue)
         {
             // Get user input

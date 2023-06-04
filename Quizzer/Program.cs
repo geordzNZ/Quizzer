@@ -17,8 +17,8 @@ namespace Quizzer
 
             // Check if file exists for first run, ope if it exists
             if (File.Exists(QUIZ_LIST_FILENAME))
-                {
-                    QuizList = UtilitiesLogic.ReadFromQuizFile();
+            {
+                QuizList = UtilitiesLogic.ReadFromQuizFile();
             }
 
             char gameMode = ' ';

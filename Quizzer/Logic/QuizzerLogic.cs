@@ -9,13 +9,13 @@ namespace Quizzer.Logic
 
 
         /// <summary>
-        /// Controls Quisser game mode
+        /// Controls Quizzer game mode
         /// </summary>
         public static void QuizzerGameMode()
         {
             QuizzerUI.DisplayQuizzerInstructions();
             char quizzerAction = UtilitiesUI.GetUserInputChar("Choose an Quizzer action", "LR");
-            Thread.Sleep(Program.POPUP_TIME);
+
 
             switch (quizzerAction)
             {
@@ -52,95 +52,78 @@ namespace Quizzer.Logic
             }
 
 
-            Thread.Sleep(Program.POPUP_TIME);
+            //Thread.Sleep(Program.POPUP_TIME);
         }  //  End of static void QuizzerGameMode
 
 
         /// <summary>
-        /// Controls taking of the selected quiz, with displays and formatting
+        /// Controls taking of the selected quiz
         /// </summary>
         /// <param name="quiz">the select quiz</param>
         public static void TakeQuiz(Objects.Quiz quiz)
         {
             //Display quiz details, ready for the questions
             QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answerings");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write($"\t{quiz.QuizName}");
-            Console.ResetColor();
-            Console.Write($"  -  Created by {quiz.Author} (");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write($"{quiz.QuestionsCount} {(quiz.QuestionsCount > 1 ? "questions" : "question")}");
-            Console.ResetColor();
-            Console.Write($")\n");
-
+            QuizzerUI.DisplayQuizHeader(quiz);
+            
             // Retrieve Questions from file
             List<Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
             List<Question> askedQuestionList = new List<Question>();
+
             
-            // Set up for vairables
+            // Set up for randoms
             Random randomQuestion = new Random();
-            Random randomAnswer = new Random();
             int correctAnswers = 0;
 
             // Work thru List of questions and control flow
             for (int i = 0; i < quiz.QuestionsCount; i++)
             {
-                // Random ID for randomising the Questions
+                // Random ID for randomising the Questions and get question
                 int randomQuestionID = randomQuestion.Next(allQuestionList.Count);
-
-                // Set up and Process available answers
-                string answers = allQuestionList[randomQuestionID].WrongAnswers;
-                answers += '/' + allQuestionList[randomQuestionID].CorrectAnswer;
-                List<string> allAnswersList = answers.Split('/').ToList();
-                List<string> usedAnswersList = new List<string>();
-                int totalAnswers = allAnswersList.Count;
-                int userAnswerID = 999;
-
-                // Display Question and available randomises answers 
-                Console.WriteLine($"\t\tQ:  {allQuestionList[randomQuestionID].QuestionPrompt}");
-                for (int j = 0; j < totalAnswers; j++)
-                {
-                    int randomAnswerID = randomAnswer.Next(allAnswersList.Count);
-
-                    Console.WriteLine($"\t\t\t{j + 1}:  {allAnswersList[randomAnswerID]}");
-
-                    // Keep track of answers
-                    usedAnswersList.Add(allAnswersList[randomAnswerID]);
-                    allAnswersList.Remove(allAnswersList[randomAnswerID]);
-                }
-
+                Question currentQuestion = allQuestionList[randomQuestionID];
+                
+                // Handle current question - display Q & A's / Get answer
+                correctAnswers += HandleCurrentQuestion(i, currentQuestion);
+                
                 // Keep track of questions
-                askedQuestionList.Add(allQuestionList[randomQuestionID]);
                 allQuestionList.Remove(allQuestionList[randomQuestionID]);
-
-                // Get answer from user and check if correct
-                userAnswerID = UtilitiesUI.GetUserInputNumber("\tYour answer", 1, usedAnswersList.Count);
-                if (usedAnswersList[userAnswerID - 1] == askedQuestionList[askedQuestionList.Count - 1].CorrectAnswer)
-                {
-                    Console.WriteLine($"\t\tCORRECT!!");
-                    correctAnswers++;
-                }
-                else
-                {
-                    Console.WriteLine($"\t\tWRONG!!");
-
-                }
             }
 
             // Display Quiz outcome
-            Console.Write($"\n\tYou scored ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"{correctAnswers}");
-            Console.ResetColor();
-            Console.Write($" correct, out of ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"{askedQuestionList.Count}");
-            Console.ResetColor();
-            Console.Write($" -- ");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"{(correctAnswers / (double)askedQuestionList.Count).ToString("P1")}");
-            Console.ResetColor();
+            QuizzerUI.DisplayQuizResult(correctAnswers, quiz.QuestionsCount);
         }  //  End of public static void TakeQuiz
+
+
+        /// <summary>
+        /// Manages the whole question journey
+        /// </summary>
+        /// <param name="questionNumber">the current question number</param>
+        /// <param name="question">the current question object</param>
+        /// <returns>1 if correct answer is given, 0 if not</returns>
+        public static int HandleCurrentQuestion(int questionNumber, Question question)
+        {
+            // Display question prompt
+            QuizzerUI.DisplayCurrentQuizQuestion(questionNumber, question.QuestionPrompt);
+         
+            // Display answers and return list of answers as displayed
+            List<string> usedAnswersList = QuizzerUI.DisplayCurrentQuizQuestionAnswers(question.WrongAnswers, question.CorrectAnswer);
+
+            // Get answer from user and check if correct
+            int userAnswerID = UtilitiesUI.GetUserInputNumber("\t  Your answer", 1, question.TotalAnswers);
+
+            // Display question result and return as appropriate
+            if (usedAnswersList[userAnswerID - 1] == question.CorrectAnswer)
+            {
+                QuizzerUI.DisplayQuestionReult(1);
+                return 1;
+            }
+            else
+            {
+                QuizzerUI.DisplayQuestionReult(0);
+                return 0;
+            }
+        }  //  End of public static int HandleCurrentQuestion
+
 
     }  //  End of internal class QuizzerLogic
 }  //  End of namespace Quizzer.Logic

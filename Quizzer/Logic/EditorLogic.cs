@@ -217,6 +217,10 @@ namespace Quizzer.Logic
         }  //  End of public static Quiz CreateQuiz
 
 
+        /// <summary>
+        /// Get List of questiosn from user
+        /// </summary>
+        /// <returns>Question List, with all entered questions</returns>
         public static List<Question> CreateQuizQuestions()
         {
             // Set up for Question list creation
@@ -235,6 +239,12 @@ namespace Quizzer.Logic
             return inputQuestionList;
         }  //  End of public static List<Question> CreateQuizQuestions
 
+
+        /// <summary>
+        /// Get singe Question Details
+        /// </summary>
+        /// <param name="nextQuestionID">int, the next Question number</param>
+        /// <returns>Question, the inputed question details</returns>
         public static Question GetQuizQuestionDetails(int nextQuestionID)
         {
             Question inputQuestion = new Question();

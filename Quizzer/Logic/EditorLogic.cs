@@ -42,7 +42,7 @@ namespace Quizzer.Logic
                 break;
 
             case 'E':  // Edit a Quiz
-                // Display Editer > Edit headers
+                // Display header section
                 EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
 
                 // Handle if there are no saved quizzes to display
@@ -164,29 +164,30 @@ namespace Quizzer.Logic
                     break;
                 }
 
+                // Store quis to delete details
+                Quiz quizToDelete = Program.QuizList[selectedQuiztoDelete - 1];
+
                 // Display selected quiz details
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"\t{Program.QuizList[selectedQuiztoDelete - 1].QuizName}");
-                Console.Write($"  -  Created by {Program.QuizList[selectedQuiztoDelete - 1].Author}");
-                Console.Write($"\tTo be deleted\n");
-                Console.ResetColor();
-                    
+                EditorUI.DisplayDeleteQuizPrompt(quizToDelete);
+
                 // Prompt to confirm deletion and process accordingly
                 char confirmDeletion = UtilitiesUI.GetUserInputChar("Confirm deletion of this quiz","YN");
 
                 if (confirmDeletion == 'Y')
                 {
-                    UtilitiesUI.DisplayMessage(Program.QuizList[selectedQuiztoDelete - 1].QuizName + " has been deleted");
                     // Clean up Question file and the Quiz header
-                    File.Delete(Program.QuizList[selectedQuiztoDelete - 1].QuizFileName);
-                    Program.QuizList.Remove(Program.QuizList[selectedQuiztoDelete - 1]);
-                        
+                    File.Delete(quizToDelete.QuizFileName);
+                    Program.QuizList.Remove(quizToDelete);
+                    
+                    // Delete the Question file
+                    UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has been deleted");
+
                     // Update QuizList.xml after removal
                     UtilitiesLogic.WriteToQuizFile(Program.QuizList);
                 }
                 else
                 {
-                    UtilitiesUI.DisplayMessage(Program.QuizList[selectedQuiztoDelete - 1].QuizName + " has not been deleted");
+                    UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has not been deleted");
                 }
                 break;
 
@@ -200,7 +201,7 @@ namespace Quizzer.Logic
         /// <summary>
         /// Get all quiz details
         /// </summary>
-        /// <returns>Quiz, </returns>
+        /// <returns>(Quiz) - The newly created Quiz details</returns>
         public static Quiz CreateQuiz()
         {
             // Set up to create new quiz
@@ -216,11 +217,10 @@ namespace Quizzer.Logic
             return inputQuiz;
         }  //  End of public static Quiz CreateQuiz
 
-
         /// <summary>
         /// Get List of questiosn from user
         /// </summary>
-        /// <returns>Question List, with all entered questions</returns>
+        /// <returns>(List<Question>) - Question List, with all entered questions</returns>
         public static List<Question> CreateQuizQuestions()
         {
             // Set up for Question list creation
@@ -235,7 +235,6 @@ namespace Quizzer.Logic
 
                 addAnotherQuestion = UtilitiesUI.GetUserInputChar("Add another Question", "YN");
             }
-            
             return inputQuestionList;
         }  //  End of public static List<Question> CreateQuizQuestions
 
@@ -243,7 +242,7 @@ namespace Quizzer.Logic
         /// <summary>
         /// Get singe Question Details
         /// </summary>
-        /// <param name="nextQuestionID">int, the next Question number</param>
+        /// <param name="nextQuestionID">(int) - the next Question number</param>
         /// <returns>Question, the inputed question details</returns>
         public static Question GetQuizQuestionDetails(int nextQuestionID)
         {

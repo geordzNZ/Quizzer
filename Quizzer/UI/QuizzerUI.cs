@@ -6,8 +6,6 @@ namespace Quizzer.UI
 {
     internal class QuizzerUI
     {
-
-
         /// <summary>
         /// Display header section for Quizzer mode
         /// </summary>
@@ -24,8 +22,8 @@ namespace Quizzer.UI
         /// <summary>
         /// Display header section for Quizzer mode specific actions
         /// </summary>
-        /// <param name="action">indication of action user has chosen</param>
-        /// <param name="prompt">sub text for more info</param>
+        /// <param name="action">(string) - indication of action user has chosen</param>
+        /// <param name="prompt">(string) - sub text for more info</param>
         public static void DisplayQuizzerActionsHeader(string action, string prompt)
         {
             GameUI.DisplayGameHeader();
@@ -35,11 +33,12 @@ namespace Quizzer.UI
             Console.SetCursorPosition(0, Console.CursorTop + 1);
         }  //  End of public static void DisplayEditorActionsHeader
 
+
         /// <summary>
         /// Displays the quiz header details
         /// </summary>
-        /// <param name="quiz">The quizselected by the user</param>
-        public static void DisplayQuizHeader(Objects.Quiz quiz)
+        /// <param name="quiz">(Quiz) - The quizselected by the user</param>
+        public static void DisplayQuizHeader(Quiz quiz)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"\t{quiz.QuizName}");
@@ -55,8 +54,8 @@ namespace Quizzer.UI
         /// <summary>
         /// Display current question number and the prompt, adds in ? if needed.
         /// </summary>
-        /// <param name="questionNumber">int, number of question</param>
-        /// <param name="prompt">string, prompt to ask user</param>
+        /// <param name="questionNumber">(int) - number of question</param>
+        /// <param name="prompt">(string) - prompt to ask user</param>
         public static void DisplayCurrentQuizQuestion(int questionNumber, string prompt)
         {
             prompt = prompt.EndsWith('?') ? prompt : prompt + '?';
@@ -69,9 +68,9 @@ namespace Quizzer.UI
         /// <summary>
         /// Display correct and wrong answers in the list
         /// </summary>
-        /// <param name="wrongAnswers">string, The incorrect answers, with / seperator</param>
-        /// <param name="correctAnswer">string, The correct answer </param>
-        /// <returns>List of all answers, in random order, as displayed to user</returns>
+        /// <param name="wrongAnswers"> (string) - The incorrect answers, with / seperator</param>
+        /// <param name="correctAnswer">(string) - The correct answer </param>
+        /// <returns>(List<string>) - List of all answers, in random order, as displayed to user</returns>
         public static List<string> DisplayCurrentQuizQuestionAnswers(string wrongAnswers, string correctAnswer)
         {
             Random randomAnswer = new Random();
@@ -102,7 +101,7 @@ namespace Quizzer.UI
         /// <summary>
         /// Display answer result on same line as answer, with colour
         /// </summary>
-        /// <param name="result">0 for wrong messages, 1 for correct message</param>
+        /// <param name="result">(int) - 0 for wrong messages, 1 for correct message</param>
         public static void DisplayQuestionReult(int result)
         {
             Console.SetCursorPosition(42, Console.CursorTop - 1);
@@ -128,8 +127,8 @@ namespace Quizzer.UI
         /// <summary>
         /// Displays the Quiz result line
         /// </summary>
-        /// <param name="correct">number of correct answers</param>
-        /// <param name="total">total number of questions in the quiz</param>
+        /// <param name="correct">(int) - number of correct answers</param>
+        /// <param name="total"(int) - >total number of questions in the quiz</param>
         public static void DisplayQuizResult(int correct, int total)
         {
             Console.Write($"\n\tYou scored ");

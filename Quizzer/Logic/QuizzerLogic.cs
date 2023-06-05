@@ -6,8 +6,6 @@ namespace Quizzer.Logic
 {
     internal class QuizzerLogic
     {
-
-
         /// <summary>
         /// Controls Quizzer game mode
         /// </summary>
@@ -19,48 +17,43 @@ namespace Quizzer.Logic
 
             switch (quizzerAction)
             {
-                case 'L':  // List quizzes to play
-                    // List Quizes
-                    QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
+            case 'L':  // List quizzes to play
+                // List Quizes
+                QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
 
-                    // Handle if there are no saved quizzes to display
-                    if (Program.QuizList.Count == 0)
-                    {
-                        UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
-                        break;
-                    }
-
-                    // Display available Quizzes
-                    UtilitiesUI.DisplayAvailableQuizes();
-
-                    // Get Quiz to edit
-                    int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
-
-                    // Return to menu if selected
-                    if (selectedQuizToPlay == 0)
-                    {
-                        break;
-                    }
-
-                    // Play the Quiz
-                    TakeQuiz(Program.QuizList[selectedQuizToPlay - 1]);
-
+                // Handle if there are no saved quizzes to display
+                if (Program.QuizList.Count == 0)
+                {
+                    UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
                     break;
+                }
 
-                case 'R':  // Return to Game Menu
+                // Display available Quizzes
+                UtilitiesUI.DisplayAvailableQuizes();
+
+                // Get Quiz to edit
+                int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
+
+                // Return to menu if selected
+                if (selectedQuizToPlay == 0)
+                {
                     break;
+                }
+
+                // Play the Quiz
+                TakeQuiz(Program.QuizList[selectedQuizToPlay - 1]);
+                break;
+            case 'R':  // Return to Game Menu
+                break;
             }
-
-
-            //Thread.Sleep(Program.POPUP_TIME);
-        }  //  End of static void QuizzerGameMode
+        }  //  End of public static void QuizzerGameMode
 
 
         /// <summary>
         /// Controls taking of the selected quiz
         /// </summary>
-        /// <param name="quiz">the select quiz</param>
-        public static void TakeQuiz(Objects.Quiz quiz)
+        /// <param name="quiz">(Quiz) - the select quiz</param>
+        public static void TakeQuiz(Quiz quiz)
         {
             //Display quiz details, ready for the questions
             QuizzerUI.DisplayQuizzerActionsHeader("Take", "Good luck with your answerings");
@@ -70,8 +63,7 @@ namespace Quizzer.Logic
             List<Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
             List<Question> askedQuestionList = new List<Question>();
 
-            
-            // Set up for randoms
+            // Set up for random number generation
             Random randomQuestion = new Random();
             int correctAnswers = 0;
 
@@ -97,9 +89,9 @@ namespace Quizzer.Logic
         /// <summary>
         /// Manages the whole question journey
         /// </summary>
-        /// <param name="questionNumber">the current question number</param>
-        /// <param name="question">the current question object</param>
-        /// <returns>1 if correct answer is given, 0 if not</returns>
+        /// <param name="questionNumber">(int) -  current question number</param>
+        /// <param name="question">(Question) - the current question object</param>
+        /// <returns>(int) - 1 if correct answer is given, 0 if not</returns>
         public static int HandleCurrentQuestion(int questionNumber, Question question)
         {
             // Display question prompt

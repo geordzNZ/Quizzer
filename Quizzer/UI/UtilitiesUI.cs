@@ -23,8 +23,8 @@ namespace Quizzer.UI
         /// <summary>
         /// Blanks out certain parts of the sreen, based on params and repositions cursor for next input
         /// </summary>
-        /// <param name="left">number(int) indicating position from the left of the console</param>
-        /// <param name="top">number(int) indicating position from the top of the console</param>
+        /// <param name="left">(int) - indicating position from the left of the console</param>
+        /// <param name="top">(int) - indicating position from the top of the console</param>
         public static void DisplayBlanker(int left, int top)
         {
             Console.SetCursorPosition(left, top);
@@ -36,7 +36,7 @@ namespace Quizzer.UI
         /// <summary>
         /// Standardised meesage display with formatting
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">(string) - text to be displayed</param>
         public static void DisplayMessage(string message)
         {
             Console.WriteLine($"\n\t{message}");
@@ -78,9 +78,9 @@ namespace Quizzer.UI
         /// <summary>
         /// Takes a prompt and list of valid characters to return a validated user input
         /// </summary>
-        /// <param name="userPrompt">Question to be posed to the user</param>
-        /// <param name="validOptions">List of valid options</param>
-        /// <returns>The validated char from the user input</returns>
+        /// <param name="userPrompt">(string) - Question to be posed to the user</param>
+        /// <param name="validOptions">(string) - List of valid options</param>
+        /// <returns>(char) - The validated uppercase char from the user input</returns>
         public static char GetUserInputChar(string userPrompt, string validOptions)
         {
             char[] validChars = validOptions.ToUpper().ToCharArray();
@@ -111,15 +111,14 @@ namespace Quizzer.UI
         /// <summary>
         /// Takes a prompt and gets a string input from the user
         /// </summary>
-        /// <param name="userPrompt">Question to be posed to the user</param>
-        /// <param name="blanksOK">Optional - If blank is a valid answer to this prompt, defualts to false (blanks not allowed)</param>
-        /// <returns>a string input by user</returns>
+        /// <param name="userPrompt">(string) - Question to be posed to the user</param>
+        /// <param name="blanksOK">(bool) - Optional - If blank is a valid answer to this prompt, defualts to false (blanks not allowed)</param>
+        /// <returns>(string) - text input by user or a blank string</returns>
         public static string GetUserInputString(string userPrompt, bool blanksOK = false)
         {
             // Get user input
             string userInput = "";
 
-            //while (userInput.Length == 0)
             while (true)
             {
                 UtilitiesUI.DisplayBlanker(8, Console.CursorTop);
@@ -150,17 +149,16 @@ namespace Quizzer.UI
                 Console.ResetColor();
                 Thread.Sleep(Program.POPUP_TIME);
             }
-            // return "xxx";
         }  //  End of public static string GetUserInputString
 
 
         /// <summary>
         /// Takes a prompt and gets an int input from the user
         /// </summary>
-        /// <param name="userPrompt">the question to prompt the user</param>
-        /// <param name="lowerValue">minimum number</param>
-        /// <param name="upperValue">maximum number</param>
-        /// <returns>the validated users selection</returns>
+        /// <param name="userPrompt">(string) - the question to prompt the user</param>
+        /// <param name="lowerValue">(int) - minimum number</param>
+        /// <param name="upperValue">(int) - maximum number</param>
+        /// <returns>(int) - the validated user selection</returns>
         public static int GetUserInputNumber(string userPrompt, int lowerValue, int upperValue)
         {
             // Get user input

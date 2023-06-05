@@ -4,7 +4,6 @@ namespace Quizzer.UI
 {
     public static class GameUI
     {
-
         /// <summary>
         /// Game Title section
         /// </summary>

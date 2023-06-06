@@ -18,182 +18,121 @@ namespace Quizzer.Logic
 
             switch (editorAction)
             {
-            case 'C':  // Create a Quiz
-                // Header section
-                EditorUI.DisplayEditorActionsHeader("Create", "Follow the prompts to create your new quiz");
+                case 'C':  // Create a Quiz
+                    // Header section
+                    EditorUI.DisplayEditorActionsHeader("Create", "Follow the prompts to create your new quiz");
 
-                // Get Quiz Details
-                Quiz createdQuiz = CreateQuiz();
+                    // Get Quiz Details
+                    Quiz createdQuiz = CreateQuiz();
 
-                // Get Quiz Questions
-                List<Question> createdQuestionList = CreateQuizQuestions();
+                    // Get Quiz Questions
+                    List<Question> createdQuestionList = CreateQuizQuestions();
 
-                // Update Question count for the created Quiz
-                createdQuiz.QuestionsCount = createdQuestionList.Count;
+                    // Update Question count for the created Quiz
+                    createdQuiz.QuestionsCount = createdQuestionList.Count;
 
-                // Add created Quiz to Master Quiz List
-                Program.QuizList.Add(createdQuiz);
+                    // Add created Quiz to Master Quiz List
+                    Program.QuizList.Add(createdQuiz);
 
-                // Open file and write Master Quiz List and Questions to files
-                UtilitiesLogic.WriteToQuizFile(Program.QuizList);
-                UtilitiesLogic.WriteToQuestionFile(createdQuestionList, createdQuiz.QuizFileName);
-
-                UtilitiesUI.DisplayMessage("Quiz and questions added successfully");
-                break;
-
-            case 'E':  // Edit a Quiz
-                // Display header section
-                EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
-
-                // Handle if there are no saved quizzes to display
-                if (Program.QuizList.Count == 0)
-                {
-                    UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Edit)\n\t\tReturning to the main menu...");
-                    break;
-                }
-
-                // Display available Quizzes
-                UtilitiesUI.DisplayAvailableQuizes();
-
-                // Get Quiz to edit
-                int selectedQuizToEdit = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Edit", 0, Program.QuizList.Count);
-
-                // Return to menu if so selected
-                if (selectedQuizToEdit == 0)
-                {
-                    break;
-                }
-
-                // Display Editer > Edit headers
-                EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz\n\t  Update the field, or leave blank to leave unchanged");
-
-
-                // Display Quiz header info - line at a time and prompt for the updates as needed
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine($"\tQuiz Header Details...");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\t\tQuizName: ");
-                Console.WriteLine($"{Program.QuizList[selectedQuizToEdit - 1].QuizName}");
-                Console.ResetColor();
-                string quizNameEdit = UtilitiesUI.GetUserInputString("\tUpdate? ", true);
-                if (quizNameEdit.Length != 0)
-                {
-                    Program.QuizList[selectedQuizToEdit - 1].QuizName = quizNameEdit;
-                }
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\t\tAuthor\t: ");
-                Console.WriteLine($"{Program.QuizList[selectedQuizToEdit - 1].Author}");
-                Console.ResetColor();
-                string authorEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t", true);
-                if (authorEdit.Length != 0)
-                {
-                    Program.QuizList[selectedQuizToEdit - 1].Author = authorEdit;
-                }
-
-                // Get Questions for this Quiz and display for updating as needed
-                List <Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(Program.QuizList[selectedQuizToEdit - 1].QuizFileName);
-
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine($"\n\tQuiz Question Details...");
-                Console.ResetColor();
-
-                int questionID = 1;
-                foreach (Question q in allQuestionList)
-                {
-                    Console.WriteLine($"\tQuestion {questionID}:");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"\t\tPrompt\t: ");
-                    Console.WriteLine($"{q.QuestionPrompt}");
-                    Console.ResetColor();
-                    string promptEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t", true);
-                    if (promptEdit.Length != 0)
-                    {
-                        q.QuestionPrompt = promptEdit;
-                    }
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"\t\tCorrect Answer\t: ");
-                    Console.WriteLine($"{q.CorrectAnswer}");
-                    Console.ResetColor();
-                    string correctEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t\t", true);
-                    if (correctEdit.Length != 0)
-                    {
-                        q.CorrectAnswer = correctEdit;
-                    }
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"\t\tWrong Answers\t: ");
-                    Console.WriteLine($"{q.WrongAnswers}");
-                    Console.ResetColor();
-                    string wrongEdit = UtilitiesUI.GetUserInputString("\tUpdate?\t\t", true);
-                    if (wrongEdit.Length != 0)
-                    {
-                        q.WrongAnswers = wrongEdit;
-                    }
-
-                    questionID++;
-                }
-
-                // Update info inthe files
-                UtilitiesLogic.WriteToQuizFile(Program.QuizList);
-                UtilitiesLogic.WriteToQuestionFile(allQuestionList, Program.QuizList[selectedQuizToEdit - 1].QuizFileName);
-
-                UtilitiesUI.DisplayMessage("Quiz and questions updated successfully");
-
-                break;
-
-            case 'D':  // Delete a Quiz
-                EditorUI.DisplayEditorActionsHeader("Delete", "Choose a list to delete");
-
-                // Handle if there are no saved quizzes to display
-                if (Program.QuizList.Count == 0)
-                {
-                    UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Delete)\n\t\tReturning to the main menu...");
-                    break;
-                }
-
-                // Display available Quizzes
-                UtilitiesUI.DisplayAvailableQuizes();
-
-                // Get Quiz to remove 
-                int selectedQuiztoDelete = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Delete", 0, Program.QuizList.Count);
-
-                // Return to menu if selected
-                if (selectedQuiztoDelete == 0)
-                {
-                    break;
-                }
-
-                // Store quis to delete details
-                Quiz quizToDelete = Program.QuizList[selectedQuiztoDelete - 1];
-
-                // Display selected quiz details
-                EditorUI.DisplayDeleteQuizPrompt(quizToDelete);
-
-                // Prompt to confirm deletion and process accordingly
-                char confirmDeletion = UtilitiesUI.GetUserInputChar("Confirm deletion of this quiz","YN");
-
-                if (confirmDeletion == 'Y')
-                {
-                    // Clean up Question file and the Quiz header
-                    File.Delete(quizToDelete.QuizFileName);
-                    Program.QuizList.Remove(quizToDelete);
-                    
-                    // Delete the Question file
-                    UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has been deleted");
-
-                    // Update QuizList.xml after removal
+                    // Open file and write Master Quiz List and Questions to files
                     UtilitiesLogic.WriteToQuizFile(Program.QuizList);
-                }
-                else
-                {
-                    UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has not been deleted");
-                }
-                break;
+                    UtilitiesLogic.WriteToQuestionFile(createdQuestionList, createdQuiz.QuizFileName);
 
-            case 'R':   // Return to GameMenu
-                break;
+                    UtilitiesUI.DisplayMessage("Quiz and questions added successfully");
+                    break;
 
+                case 'E':  // Edit a Quiz
+                    // Display header section
+                    EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz");
+
+                    // Handle if there are no saved quizzes to display
+                    if (Program.QuizList.Count == 0)
+                    {
+                        UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Edit)\n\t\tReturning to the main menu...");
+                        break;
+                    }
+
+                    // Display available Quizzes
+                    UtilitiesUI.DisplayAvailableQuizes();
+
+                    // Get Quiz to edit
+                    int selectedQuizToEdit = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Edit", 0, Program.QuizList.Count);
+
+                    // Return to menu if so selected
+                    if (selectedQuizToEdit == 0)
+                    {
+                        break;
+                    }
+
+
+                    // Display Editer > Edit headers
+                    EditorUI.DisplayEditorActionsHeader("Edit", "Choose a list and follow the prompts to edit your quiz\n\t  Update the field, or leave blank to leave unchanged");
+
+                    // Display Quiz header info and prompt for the updates as needed
+                    EditorUI.ControlEditingQuizHeaderDetails(selectedQuizToEdit - 1);
+
+                    // Get Questions for this Quiz and display for updating as needed
+                    List <Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(Program.QuizList[selectedQuizToEdit - 1].QuizFileName);
+
+                    List<Question> editedQuestionsList = EditorUI.ControlEditingQuizQuestions(allQuestionList);
+
+                    // Update info inthe files
+                    UtilitiesLogic.WriteToQuizFile(Program.QuizList);
+                    UtilitiesLogic.WriteToQuestionFile(editedQuestionsList, Program.QuizList[selectedQuizToEdit - 1].QuizFileName);
+
+                    UtilitiesUI.DisplayMessage("Quiz and questions updated successfully");
+
+                    break;
+                case 'D':  // Delete a Quiz
+                    EditorUI.DisplayEditorActionsHeader("Delete", "Choose a list to delete");
+
+                    // Handle if there are no saved quizzes to display
+                    if (Program.QuizList.Count == 0)
+                    {
+                        UtilitiesUI.DisplayMessage("\tNo Quizzes to Display (or Delete)\n\t\tReturning to the main menu...");
+                        break;
+                    }
+
+                    // Display available Quizzes
+                    UtilitiesUI.DisplayAvailableQuizes();
+
+                    // Get Quiz to remove 
+                    int selectedQuiztoDelete = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to Delete", 0, Program.QuizList.Count);
+
+                    // Return to menu if selected
+                    if (selectedQuiztoDelete == 0)
+                    {
+                        break;
+                    }
+
+                    // Store quis to delete details
+                    Quiz quizToDelete = Program.QuizList[selectedQuiztoDelete - 1];
+
+                    // Display selected quiz details
+                    EditorUI.DisplayDeleteQuizPrompt(quizToDelete);
+
+                    // Prompt to confirm deletion and process accordingly
+                    char confirmDeletion = UtilitiesUI.GetUserInputChar("Confirm deletion of this quiz","YN");
+
+                    if (confirmDeletion == 'Y')
+                    {
+                        // Clean up Question file and the Quiz header
+                        File.Delete(quizToDelete.QuizFileName);
+                        Program.QuizList.Remove(quizToDelete);
+                    
+                        // Delete the Question file
+                        UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has been deleted");
+
+                        // Update QuizList.xml after removal
+                        UtilitiesLogic.WriteToQuizFile(Program.QuizList);
+                    }
+                    else
+                    {
+                        UtilitiesUI.DisplayMessage(quizToDelete.QuizName + " has not been deleted");
+                    }
+                    break;
+                case 'R':   // Return to GameMenu
+                    break;
             }
         }  //  End of static void EditorGameMode
 

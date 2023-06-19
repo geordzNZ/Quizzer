@@ -7,7 +7,6 @@ namespace Quizzer
 {
     internal class Program
     {
-        public const int POPUP_TIME = 750;
         public static List<Quiz> QuizList = new List<Quiz>();
 
 

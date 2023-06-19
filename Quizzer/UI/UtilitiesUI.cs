@@ -7,7 +7,8 @@ namespace Quizzer.UI
     {
         const string DIVIDER = "=====================================================================";
         const string BLANKER = "                                                                                  ";
-       
+        const int POPUP_TIME = 750;
+
 
         /// <summary>
         /// Displays default divider line with formatting to standardize
@@ -41,7 +42,7 @@ namespace Quizzer.UI
         {
             Console.WriteLine($"\n\t{message}");
             DisplayDivider();
-            Thread.Sleep(Program.POPUP_TIME);
+            Thread.Sleep(POPUP_TIME);
         }
 
 
@@ -104,7 +105,7 @@ namespace Quizzer.UI
                 Console.Write($"\t --> Valid options are {string.Join(" / ", validChars)}...");
                 Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 Console.ResetColor();
-                Thread.Sleep(Program.POPUP_TIME);
+                Thread.Sleep(POPUP_TIME);
             }
         }  //  End of public static char GetCharUserInput
 
@@ -147,7 +148,7 @@ namespace Quizzer.UI
                 Console.SetCursorPosition(forErrorCursorLeft, forErrorCursorTop);
                 Console.Write($"\t --> Please enter some text...");
                 Console.ResetColor();
-                Thread.Sleep(Program.POPUP_TIME);
+                Thread.Sleep(POPUP_TIME);
             }
         }  //  End of public static string GetUserInputString
 
@@ -187,7 +188,7 @@ namespace Quizzer.UI
                 Console.Write($"\t --> Valid options are between {lowerValue}-{upperValue} ...");
                 Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 Console.ResetColor();
-                Thread.Sleep(Program.POPUP_TIME);
+                Thread.Sleep(POPUP_TIME);
             }
         }  //  End of public static int GetUserInputNumber
 

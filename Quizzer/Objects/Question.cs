@@ -1,7 +1,5 @@
 ﻿
 
-using System.Net.NetworkInformation;
-
 namespace Quizzer.Objects
 {
     public class Question

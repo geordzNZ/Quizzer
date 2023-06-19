@@ -13,6 +13,12 @@ namespace Quizzer.Logic
         /// <returns>(List<Quiz>) - Quiz details</returns>
         public static List<Quiz> ReadFromQuizFile()
         {
+            if (!File.Exists(Program.QUIZ_LIST_FILENAME))
+            {
+                return new List<Quiz>();
+            }
+
+
             XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Quiz>));
             using (FileStream file = File.OpenRead(Program.QUIZ_LIST_FILENAME))
             {

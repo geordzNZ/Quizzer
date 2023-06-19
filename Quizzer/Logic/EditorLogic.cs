@@ -11,6 +11,10 @@ namespace Quizzer.Logic
         /// </summary>
         public static void EditorGameMode()
         {
+            
+            // Get either the QuizList or a blank list
+            Program.QuizList = UtilitiesLogic.ReadFromQuizFile();
+
             // Prompt user for Game Mode and process input
             EditorUI.DisplayEditorInstructions();
             char editorAction = UtilitiesUI.GetUserInputChar("Choose an Editor action", "CEDR");

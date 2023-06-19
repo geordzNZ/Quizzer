@@ -7,20 +7,22 @@ namespace Quizzer.Logic
 {
     internal class UtilitiesLogic
     {
+        const string QUIZ_LIST_FILENAME = "QuizList.xml";
+
         /// <summary>
         /// Open Quiz file and read as input
         /// </summary>
         /// <returns>(List<Quiz>) - Quiz details</returns>
         public static List<Quiz> ReadFromQuizFile()
         {
-            if (!File.Exists(Program.QUIZ_LIST_FILENAME))
+            if (!File.Exists(QUIZ_LIST_FILENAME))
             {
                 return new List<Quiz>();
             }
 
 
             XmlSerializer xmlQuizReader = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.OpenRead(Program.QUIZ_LIST_FILENAME))
+            using (FileStream file = File.OpenRead(QUIZ_LIST_FILENAME))
             {
                 return xmlQuizReader.Deserialize(file) as List<Quiz>;
             }
@@ -34,7 +36,7 @@ namespace Quizzer.Logic
         public static void WriteToQuizFile(List<Quiz> quiz)
         {
             XmlSerializer xmlQuizWriter = new XmlSerializer(typeof(List<Quiz>));
-            using (FileStream file = File.Create(Program.QUIZ_LIST_FILENAME))
+            using (FileStream file = File.Create(QUIZ_LIST_FILENAME))
             {
                 xmlQuizWriter.Serialize(file, quiz);
             }

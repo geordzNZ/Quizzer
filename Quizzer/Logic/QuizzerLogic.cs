@@ -11,6 +11,9 @@ namespace Quizzer.Logic
         /// </summary>
         public static void QuizzerGameMode()
         {
+            // Get either the QuizList or a blank list
+            Program.QuizList = UtilitiesLogic.ReadFromQuizFile();
+
             QuizzerUI.DisplayQuizzerInstructions();
             char quizzerAction = UtilitiesUI.GetUserInputChar("Choose an Quizzer action", "LR");
 

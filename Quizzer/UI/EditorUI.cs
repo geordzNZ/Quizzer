@@ -54,14 +54,14 @@ namespace Quizzer.UI
         /// Displays current QuizName and Author promts and updates those values, if changed
         /// </summary>
         /// <param name="quizID">(int) - the ID number of the quiz to edit</param>
-        public static void ControlEditingQuizHeaderDetails(int quizID)
+        public static void ControlEditingQuizHeaderDetails(Quiz quiz)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"\tQuiz Header Details...");
 
-            Program.QuizList[quizID].QuizName = DisplayAndVaildateEditedItemValue("QuizName", Program.QuizList[quizID].QuizName);
+            quiz.QuizName = DisplayAndVaildateEditedItemValue("QuizName", quiz.QuizName);
 
-            Program.QuizList[quizID].Author = DisplayAndVaildateEditedItemValue("Author\t", Program.QuizList[quizID].Author);
+            quiz.Author = DisplayAndVaildateEditedItemValue("Author\t", quiz.Author);
 
         }  //  public static void ControlEditingQuizHeaderDetails
 

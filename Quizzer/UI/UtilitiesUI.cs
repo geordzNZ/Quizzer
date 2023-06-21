@@ -49,11 +49,12 @@ namespace Quizzer.UI
         /// <summary>
         /// Process the Quiz List to format and display output
         /// </summary>
-        public static void DisplayAvailableQuizes()
+        /// <param name="quizzes">The List of available Quizzes retrieved from the file</param>
+        public static void DisplayAvailableQuizes(List<Quiz> quizzes)
         {
             // List Quizes
             int quizCounter = 1;
-            foreach (Quiz q in Program.QuizList)
+            foreach (Quiz q in quizzes)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t{quizCounter}: ");

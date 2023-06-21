@@ -7,9 +7,6 @@ namespace Quizzer
 {
     internal class Program
     {
-        public static List<Quiz> QuizList = new List<Quiz>();
-
-
         static void Main(string[] args)
         {
 

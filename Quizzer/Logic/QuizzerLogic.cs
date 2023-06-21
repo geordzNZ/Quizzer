@@ -12,7 +12,8 @@ namespace Quizzer.Logic
         public static void QuizzerGameMode()
         {
             // Get either the QuizList or a blank list
-            Program.QuizList = UtilitiesLogic.ReadFromQuizFile();
+            List<Quiz> quizzerQuizList = new List<Quiz>();
+            quizzerQuizList = UtilitiesLogic.ReadFromQuizFile();
 
             QuizzerUI.DisplayQuizzerInstructions();
             char quizzerAction = UtilitiesUI.GetUserInputChar("Choose an Quizzer action", "LR");
@@ -25,17 +26,17 @@ namespace Quizzer.Logic
                 QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
 
                 // Handle if there are no saved quizzes to display
-                if (Program.QuizList.Count == 0)
+                if (quizzerQuizList.Count == 0)
                 {
                     UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
                     break;
                 }
 
-                // Display available Quizzes
-                UtilitiesUI.DisplayAvailableQuizes();
+                // Display available Quizzes <TODO: Pass List>
+                UtilitiesUI.DisplayAvailableQuizes(quizzerQuizList);
 
                 // Get Quiz to edit
-                int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, Program.QuizList.Count);
+                int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, quizzerQuizList.Count);
 
                 // Return to menu if selected
                 if (selectedQuizToPlay == 0)
@@ -44,7 +45,7 @@ namespace Quizzer.Logic
                 }
 
                 // Play the Quiz
-                TakeQuiz(Program.QuizList[selectedQuizToPlay - 1]);
+                TakeQuiz(quizzerQuizList[selectedQuizToPlay - 1]);
                 break;
             case 'R':  // Return to Game Menu
                 break;

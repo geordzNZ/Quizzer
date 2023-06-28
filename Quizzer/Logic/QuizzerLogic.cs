@@ -6,51 +6,68 @@ namespace Quizzer.Logic
 {
     internal class QuizzerLogic
     {
+
         /// <summary>
-        /// Controls Quizzer game mode
+        /// Handles the Quiz taking modes
         /// </summary>
-        public static void QuizzerGameMode()
+        public static void HandleQuizzerGameModes()
         {
-            // Get either the QuizList or a blank list
-            List<Quiz> quizzerQuizList = new List<Quiz>();
-            quizzerQuizList = UtilitiesLogic.ReadFromQuizFile();
 
             QuizzerUI.DisplayQuizzerInstructions();
             char quizzerAction = UtilitiesUI.GetUserInputChar("Choose an Quizzer action", "LR");
 
-
             switch (quizzerAction)
             {
-            case 'L':  // List quizzes to play
-                // List Quizes
-                QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
-
-                // Handle if there are no saved quizzes to display
-                if (quizzerQuizList.Count == 0)
-                {
-                    UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                case 'L':  // List quizzes to play
+                    HandleQuizzerListAction();
                     break;
-                }
-
-                // Display available Quizzes <TODO: Pass List>
-                UtilitiesUI.DisplayAvailableQuizes(quizzerQuizList);
-
-                // Get Quiz to edit
-                int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, quizzerQuizList.Count);
-
-                // Return to menu if selected
-                if (selectedQuizToPlay == 0)
-                {
+                
+                case 'R':  // Return to Game Menu
                     break;
-                }
-
-                // Play the Quiz
-                TakeQuiz(quizzerQuizList[selectedQuizToPlay - 1]);
-                break;
-            case 'R':  // Return to Game Menu
-                break;
             }
-        }  //  End of public static void QuizzerGameMode
+        }  //  End of HandleQuizzerGameModes
+
+
+        /// <summary>
+        /// Handle the Quiz List display mode and kick off quiz
+        /// </summary>
+        public static void HandleQuizzerListAction()
+        {
+            // Get either the QuizList or a blank list
+            List<Quiz> quizzerQuizList = UtilitiesLogic.ReadFromQuizFile();
+
+            if (quizzerQuizList.Count == 0)
+            {
+                UtilitiesUI.DisplayMessage("\tNo Quizzes to Display\n\t\tReturning to the main menu...");
+                return;
+            }
+
+            // Display available quizzes
+            ListAvailableQuizzes(quizzerQuizList);
+
+            // Get Quiz to edit
+            int selectedQuizToPlay = UtilitiesUI.GetUserInputNumber("Choose a quiz ID to play", 0, quizzerQuizList.Count);
+
+            // Play the Quiz
+            if (selectedQuizToPlay != 0)
+            {
+                TakeQuiz(quizzerQuizList[selectedQuizToPlay - 1]);
+            }
+        }  //  End of HandleQuizzerListAction
+
+
+        /// <summary>
+        /// Display header and available quizzes
+        /// </summary>
+        /// <param name="quizList">(List<quiz>) - List of available quizzes</param>
+        public static void ListAvailableQuizzes(List<Quiz> quizList)
+        {
+            // Dipslay Header section
+            QuizzerUI.DisplayQuizzerActionsHeader("List", "Choose one of our available quizzes");
+
+            // Display available Quizzes
+            UtilitiesUI.DisplayAvailableQuizes(quizList);
+        }  //  End of ListAvailableQuizzes
 
 
         /// <summary>

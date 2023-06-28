@@ -26,7 +26,7 @@ namespace Quizzer
                         break;
 
                     case 'Q':  //  Q = Quizzer mode
-                        QuizzerLogic.QuizzerGameMode();
+                        QuizzerLogic.HandleQuizzerGameModes();
                         break;
                 }
             }

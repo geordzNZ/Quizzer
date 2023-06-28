@@ -13,8 +13,7 @@ namespace Quizzer.Logic
         {
 
             // Get either the QuizList or a blank list
-            List<Quiz> editorQuizList = new List<Quiz>();
-            editorQuizList = UtilitiesLogic.ReadFromQuizFile();
+            List<Quiz> editorQuizList = UtilitiesLogic.ReadFromQuizFile();
 
             // Prompt user for Game Mode and process input
             EditorUI.DisplayEditorInstructions();

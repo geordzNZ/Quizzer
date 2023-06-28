@@ -22,7 +22,7 @@ namespace Quizzer
                 switch (gameMode)
                 {
                     case 'E':  //  E = Editor mode
-                        EditorLogic.EditorGameMode();
+                        EditorLogic.HandleEditorGameModes();
                         break;
 
                     case 'Q':  //  Q = Quizzer mode

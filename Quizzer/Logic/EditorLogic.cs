@@ -45,7 +45,12 @@ namespace Quizzer.Logic
             EditorUI.DisplayEditorActionsHeader("Create", "Follow the prompts to create your new quiz");
 
             // Get Quiz Details
-            int nextQuizID = editorCreateQuizList[editorCreateQuizList.Count - 1].QuizID + 1;
+            int nextQuizID = 0;
+            if (editorCreateQuizList.Count != 0)
+            {
+                nextQuizID = editorCreateQuizList[editorCreateQuizList.Count - 1].QuizID + 1;
+            }
+
             Quiz createdQuiz = CreateQuiz(nextQuizID);
 
             // Get Quiz Questions

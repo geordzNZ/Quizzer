@@ -82,7 +82,6 @@ namespace Quizzer.Logic
             
             // Retrieve Questions from file
             List<Question> allQuestionList = UtilitiesLogic.ReadFromQuestionFile(quiz.QuizFileName);
-            List<Question> askedQuestionList = new List<Question>();
 
             // Set up for random number generation
             Random randomQuestion = new Random();
